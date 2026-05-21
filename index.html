@@ -562,8 +562,20 @@
 
     .certs-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 1.5rem;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.2rem;
+    }
+
+    @media (max-width: 1200px) {
+      .certs-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    @media (max-width: 800px) {
+      .certs-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 500px) {
+      .certs-grid { grid-template-columns: 1fr; }
     }
 
     .cert-card {
@@ -1252,11 +1264,14 @@
   <!--
     ═══════════════════════════════════════════════════════════════
     STRUCTURE DU DOSSIER GIT ATTENDUE :
-      /images/cert-google.jpg      ← certificat Google
-      /images/cert-microsoft.jpg   ← certificat Microsoft
-      /images/cert-ibm.jpg         ← certificat IBM / Coursera
-    Renomme tes fichiers exactement comme ci-dessus, ou ajuste
-    les src="./images/cert-XXX.jpg" ci-dessous.
+      /images/Certificate _ cours_python.pdf
+      /images/Certificate _ data science methodology.pdf
+      /images/Certificate _ data science tools.pdf
+      /images/Certificate _ data visualisation with python.pdf
+      /images/Certificate _ python pour data science.pdf
+      /images/Certificate _ SQL.pdf
+      /images/udemy_certificat_data_magic.pdf
+      /images/udemy_certificat_sql_course.pdf
     ═══════════════════════════════════════════════════════════════
   -->
   <section id="certifications">
@@ -1264,60 +1279,155 @@
     <h2>Mes certifications</h2>
     <div class="certs-grid">
 
-      <!-- CERTIFICAT PYTHON -->
-      <div class="cert-card reveal" onclick="openLightbox('./images/Certificate _ cours_python.pdf', 'IBM Data Analysis with Python')">
+      <!-- 1 — IBM Python -->
+      <div class="cert-card reveal" onclick="openLightbox('./images/Certificate _ cours_python.pdf', 'Data Analysis with Python')">
         <div class="cert-img-wrapper">
-          <canvas class="cert-canvas" data-pdf="./images/Certificate _ cours_python.pdf"></canvas>
-          <div class="cert-img-fallback cert-fallback-hidden" id="fb-google">
-            <span class="cert-icon-big">🏅</span><span>cert-google.pdf</span>
+          <canvas class="cert-canvas" data-pdf="./images/Certificate _ cours_python.pdf" data-fbid="fb-1"></canvas>
+          <div class="cert-img-fallback cert-fallback-hidden" id="fb-1">
+            <span class="cert-icon-big">🏅</span><span>Data Analysis with Python</span>
           </div>
           <div class="cert-img-overlay"><span>🔍 Voir le certificat</span></div>
         </div>
         <div class="cert-info">
           <div class="cert-issuer-row">
-            <span class="cert-issuer">Google</span>
-            <span class="cert-badge">Data Analytics</span>
+            <span class="cert-issuer">IBM</span>
+            <span class="cert-badge">Python</span>
           </div>
-          <div class="cert-title">IBM Data Analysis with Python</div>
+          <div class="cert-title">Data Analysis with Python</div>
           <div class="cert-date">2025</div>
         </div>
       </div>
 
-      <!-- CERTIFICAT MICROSOFT -->
-      <div class="cert-card reveal" onclick="openLightbox('./images/cert-microsoft.pdf', 'Microsoft Power BI Data Analyst')">
+      <!-- 2 — IBM Data Science Methodology -->
+      <div class="cert-card reveal" onclick="openLightbox('./images/Certificate _ data science methodology.pdf', 'Data Science Methodology')">
         <div class="cert-img-wrapper">
-          <canvas class="cert-canvas" data-pdf="./images/cert-microsoft.pdf"></canvas>
-          <div class="cert-img-fallback cert-fallback-hidden" id="fb-microsoft">
-            <span class="cert-icon-big">🏅</span><span>cert-microsoft.pdf</span>
+          <canvas class="cert-canvas" data-pdf="./images/Certificate _ data science methodology.pdf" data-fbid="fb-2"></canvas>
+          <div class="cert-img-fallback cert-fallback-hidden" id="fb-2">
+            <span class="cert-icon-big">🏅</span><span>Data Science Methodology</span>
           </div>
           <div class="cert-img-overlay"><span>🔍 Voir le certificat</span></div>
         </div>
         <div class="cert-info">
           <div class="cert-issuer-row">
-            <span class="cert-issuer">Microsoft</span>
-            <span class="cert-badge">Power BI</span>
+            <span class="cert-issuer">IBM</span>
+            <span class="cert-badge">Data Science</span>
           </div>
-          <div class="cert-title">Microsoft Power BI Data Analyst</div>
-          <div class="cert-date">2024</div>
+          <div class="cert-title">Data Science Methodology</div>
+          <div class="cert-date">2025</div>
         </div>
       </div>
 
-      <!-- CERTIFICAT IBM / COURSERA -->
-      <div class="cert-card reveal" onclick="openLightbox('./images/cert-ibm.pdf', 'Python for Data Science, AI & Development')">
+      <!-- 3 — IBM Data Science Tools -->
+      <div class="cert-card reveal" onclick="openLightbox('./images/Certificate _ data science tools.pdf', 'Data Science Tools')">
         <div class="cert-img-wrapper">
-          <canvas class="cert-canvas" data-pdf="./images/cert-ibm.pdf"></canvas>
-          <div class="cert-img-fallback cert-fallback-hidden" id="fb-ibm">
-            <span class="cert-icon-big">🏅</span><span>cert-ibm.pdf</span>
+          <canvas class="cert-canvas" data-pdf="./images/Certificate _ data science tools.pdf" data-fbid="fb-3"></canvas>
+          <div class="cert-img-fallback cert-fallback-hidden" id="fb-3">
+            <span class="cert-icon-big">🏅</span><span>Data Science Tools</span>
           </div>
           <div class="cert-img-overlay"><span>🔍 Voir le certificat</span></div>
         </div>
         <div class="cert-info">
           <div class="cert-issuer-row">
-            <span class="cert-issuer">Coursera / IBM</span>
+            <span class="cert-issuer">IBM</span>
+            <span class="cert-badge">Data Science</span>
+          </div>
+          <div class="cert-title">Data Science Tools</div>
+          <div class="cert-date">2025</div>
+        </div>
+      </div>
+
+      <!-- 4 — IBM Data Visualization -->
+      <div class="cert-card reveal" onclick="openLightbox('./images/Certificate _ data visualisation with python.pdf', 'Data Visualization with Python')">
+        <div class="cert-img-wrapper">
+          <canvas class="cert-canvas" data-pdf="./images/Certificate _ data visualisation with python.pdf" data-fbid="fb-4"></canvas>
+          <div class="cert-img-fallback cert-fallback-hidden" id="fb-4">
+            <span class="cert-icon-big">🏅</span><span>Data Visualization with Python</span>
+          </div>
+          <div class="cert-img-overlay"><span>🔍 Voir le certificat</span></div>
+        </div>
+        <div class="cert-info">
+          <div class="cert-issuer-row">
+            <span class="cert-issuer">IBM</span>
             <span class="cert-badge">Python</span>
           </div>
-          <div class="cert-title">Python for Data Science, AI &amp; Development</div>
-          <div class="cert-date">2023</div>
+          <div class="cert-title">Data Visualization with Python</div>
+          <div class="cert-date">2025</div>
+        </div>
+      </div>
+
+      <!-- 5 — IBM Python 101 -->
+      <div class="cert-card reveal" onclick="openLightbox('./images/Certificate _ python pour data science.pdf', 'Python 101 for Data Science')">
+        <div class="cert-img-wrapper">
+          <canvas class="cert-canvas" data-pdf="./images/Certificate _ python pour data science.pdf" data-fbid="fb-5"></canvas>
+          <div class="cert-img-fallback cert-fallback-hidden" id="fb-5">
+            <span class="cert-icon-big">🏅</span><span>Python 101 for Data Science</span>
+          </div>
+          <div class="cert-img-overlay"><span>🔍 Voir le certificat</span></div>
+        </div>
+        <div class="cert-info">
+          <div class="cert-issuer-row">
+            <span class="cert-issuer">IBM</span>
+            <span class="cert-badge">Python</span>
+          </div>
+          <div class="cert-title">Python 101 for Data Science</div>
+          <div class="cert-date">2025</div>
+        </div>
+      </div>
+
+      <!-- 6 — IBM SQL -->
+      <div class="cert-card reveal" onclick="openLightbox('./images/Certificate _ SQL.pdf', 'SQL and Relational Databases 101')">
+        <div class="cert-img-wrapper">
+          <canvas class="cert-canvas" data-pdf="./images/Certificate _ SQL.pdf" data-fbid="fb-6"></canvas>
+          <div class="cert-img-fallback cert-fallback-hidden" id="fb-6">
+            <span class="cert-icon-big">🏅</span><span>SQL and Relational Databases 101</span>
+          </div>
+          <div class="cert-img-overlay"><span>🔍 Voir le certificat</span></div>
+        </div>
+        <div class="cert-info">
+          <div class="cert-issuer-row">
+            <span class="cert-issuer">IBM</span>
+            <span class="cert-badge">SQL</span>
+          </div>
+          <div class="cert-title">SQL and Relational Databases 101</div>
+          <div class="cert-date">2025</div>
+        </div>
+      </div>
+
+      <!-- 7 — Udemy Power BI + Tableau + SQL -->
+      <div class="cert-card reveal" onclick="openLightbox('./images/udemy_certificat_data_magic.pdf', 'Mastering Data Magic : Power-BI + Tableau + SQL, Analytics')">
+        <div class="cert-img-wrapper">
+          <canvas class="cert-canvas" data-pdf="./images/udemy_certificat_data_magic.pdf" data-fbid="fb-7"></canvas>
+          <div class="cert-img-fallback cert-fallback-hidden" id="fb-7">
+            <span class="cert-icon-big">🏅</span><span>Mastering Data Magic</span>
+          </div>
+          <div class="cert-img-overlay"><span>🔍 Voir le certificat</span></div>
+        </div>
+        <div class="cert-info">
+          <div class="cert-issuer-row">
+            <span class="cert-issuer">Udemy</span>
+            <span class="cert-badge">BI & Analytics</span>
+          </div>
+          <div class="cert-title">Mastering Data Magic : Power-BI + Tableau + SQL</div>
+          <div class="cert-date">2025</div>
+        </div>
+      </div>
+
+      <!-- 8 — Udemy SQL Course -->
+      <div class="cert-card reveal" onclick="openLightbox('./images/udemy_certificat_sql_course.pdf', 'The Complete SQL Course: From Zero to Data Analyst')">
+        <div class="cert-img-wrapper">
+          <canvas class="cert-canvas" data-pdf="./images/udemy_certificat_sql_course.pdf" data-fbid="fb-8"></canvas>
+          <div class="cert-img-fallback cert-fallback-hidden" id="fb-8">
+            <span class="cert-icon-big">🏅</span><span>The Complete SQL Course</span>
+          </div>
+          <div class="cert-img-overlay"><span>🔍 Voir le certificat</span></div>
+        </div>
+        <div class="cert-info">
+          <div class="cert-issuer-row">
+            <span class="cert-issuer">Udemy</span>
+            <span class="cert-badge">SQL</span>
+          </div>
+          <div class="cert-title">The Complete SQL Course : From Zero to Data Analyst</div>
+          <div class="cert-date">2025</div>
         </div>
       </div>
 
@@ -1487,10 +1597,9 @@
       pdfjsLib.getDocument(pdfUrl).promise.then(pdf => {
         return pdf.getPage(1);
       }).then(page => {
-        const vp0    = page.getViewport({ scale: 1 });
-        // Calcule le scale pour remplir la largeur du wrapper
-        const scale  = (wrapper.clientWidth || 320) / vp0.width * 1.2;
-        const vp     = page.getViewport({ scale });
+        const vp0   = page.getViewport({ scale: 1 });
+        const scale = (wrapper.clientWidth || 280) / vp0.width * 1.2;
+        const vp    = page.getViewport({ scale });
         canvas.width  = vp.width;
         canvas.height = vp.height;
         canvas.style.width  = '100%';
@@ -1498,13 +1607,11 @@
         canvas.style.objectFit = 'cover';
         return page.render({ canvasContext: canvas.getContext('2d'), viewport: vp }).promise;
       }).catch(() => {
-        // PDF absent → affiche le fallback
         canvas.style.display = 'none';
-        const fbId = 'fb-' + pdfUrl.split('/').pop().replace('cert-','').replace('.pdf','');
-        const fb   = document.getElementById(fbId);
-        if (fb) {
-          fb.classList.remove('cert-fallback-hidden');
-          fb.style.display = 'flex';
+        const fbId = canvas.dataset.fbid;
+        if (fbId) {
+          const fb = document.getElementById(fbId);
+          if (fb) { fb.classList.remove('cert-fallback-hidden'); fb.style.display = 'flex'; }
         }
       });
     }
