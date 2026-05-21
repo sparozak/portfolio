@@ -636,10 +636,19 @@
       border-radius: 2px;
     }
 
-    /* Fallback si image absente */
-    .cert-img-fallback {
+    /* Canvas miniature PDF */
+    .cert-canvas {
       width: 100%;
       height: 100%;
+      object-fit: cover;
+      display: block;
+      position: absolute;
+      inset: 0;
+    }
+
+    .cert-img-fallback {
+      position: absolute;
+      inset: 0;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -657,6 +666,10 @@
       text-transform: uppercase;
       letter-spacing: 0.1em;
     }
+
+    .cert-fallback-hidden { display: none !important; }
+
+    .cert-img-wrapper { position: relative; }
 
     /* Infos sous l'image */
     .cert-info {
@@ -702,37 +715,70 @@
       color: var(--text-dim);
     }
 
-    /* ─── LIGHTBOX ─── */
+    /* ─── LIGHTBOX PDF ─── */
     .lightbox {
       position: fixed;
       inset: 0;
-      background: rgba(8, 11, 16, 0.95);
+      background: rgba(8, 11, 16, 0.97);
       z-index: 8000;
       display: flex;
-      align-items: center;
-      justify-content: center;
+      flex-direction: column;
       opacity: 0;
       pointer-events: none;
       transition: opacity 0.3s;
-      backdrop-filter: blur(8px);
+      backdrop-filter: blur(10px);
     }
 
     .lightbox.open { opacity: 1; pointer-events: all; }
 
-    .lightbox img {
-      max-width: 90vw;
-      max-height: 88vh;
-      object-fit: contain;
-      border-radius: 4px;
-      border: 1px solid var(--border);
-      box-shadow: 0 40px 80px rgba(0,0,0,0.6);
+    .lightbox-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 2rem;
+      border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
+      gap: 1rem;
+    }
+
+    .lightbox-title {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      color: var(--text-dim);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .lightbox-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      flex-shrink: 0;
+    }
+
+    .lightbox-btn-dl {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--gold);
+      text-decoration: none;
+      letter-spacing: 0.1em;
+      border: 1px solid rgba(244, 162, 97, 0.35);
+      padding: 0.4rem 1rem;
+      border-radius: 2px;
+      transition: background 0.2s, color 0.2s;
+      cursor: none;
+    }
+
+    .lightbox-btn-dl:hover {
+      background: rgba(244, 162, 97, 0.12);
     }
 
     .lightbox-close {
-      position: absolute;
-      top: 1.5rem; right: 2rem;
       font-family: var(--mono);
-      font-size: 0.8rem;
+      font-size: 0.72rem;
       color: var(--text-dim);
       letter-spacing: 0.1em;
       text-transform: uppercase;
@@ -745,6 +791,22 @@
     }
 
     .lightbox-close:hover { color: var(--accent); border-color: var(--accent); }
+
+    .lightbox-body {
+      flex: 1;
+      overflow: hidden;
+      padding: 1.5rem 2rem;
+      display: flex;
+      align-items: stretch;
+    }
+
+    .lightbox-body iframe {
+      width: 100%;
+      height: 100%;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      background: #fff;
+    }
 
     /* ─── CV ─── */
     #cv { background: var(--bg); text-align: center; }
@@ -931,10 +993,18 @@
   <div class="cursor" id="cursor"></div>
   <div class="cursor-ring" id="cursorRing"></div>
 
-  <!-- LIGHTBOX -->
+  <!-- LIGHTBOX PDF -->
   <div class="lightbox" id="lightbox">
-    <button class="lightbox-close" id="lightboxClose">✕ Fermer</button>
-    <img src="" alt="Certificat" id="lightboxImg" />
+    <div class="lightbox-header">
+      <span class="lightbox-title" id="lightboxTitle"></span>
+      <div class="lightbox-actions">
+        <a href="#" id="lightboxDownload" class="lightbox-btn-dl" download target="_blank" rel="noopener">⬇️ Télécharger</a>
+        <button class="lightbox-close" id="lightboxClose">✕ Fermer</button>
+      </div>
+    </div>
+    <div class="lightbox-body">
+      <iframe id="lightboxFrame" src="" title="Certificat PDF"></iframe>
+    </div>
   </div>
 
   <!-- NAV -->
@@ -1194,29 +1264,33 @@
     <h2>Mes certifications</h2>
     <div class="certs-grid">
 
-      <!-- CERTIFICAT GOOGLE -->
-      <div class="cert-card reveal" onclick="openLightbox('./images/cert-google.jpg')">
+      <!-- CERTIFICAT PYTHON -->
+      <div class="cert-card reveal" onclick="openLightbox('./images/Certificate _ cours_python.pdf', 'IBM Data Analysis with Python')">
         <div class="cert-img-wrapper">
-          <img src="./images/cert-google.jpg" alt="Google Data Analytics Certificate"
-               onerror="this.parentElement.innerHTML='<div class=\'cert-img-fallback\'><span class=\'cert-icon-big\'>🏅</span><span>cert-google.jpg</span></div>';" />
-          <div class="cert-img-overlay"><span>🔍 Voir en grand</span></div>
+          <canvas class="cert-canvas" data-pdf="./images/Certificate _ cours_python.pdf"></canvas>
+          <div class="cert-img-fallback cert-fallback-hidden" id="fb-google">
+            <span class="cert-icon-big">🏅</span><span>cert-google.pdf</span>
+          </div>
+          <div class="cert-img-overlay"><span>🔍 Voir le certificat</span></div>
         </div>
         <div class="cert-info">
           <div class="cert-issuer-row">
             <span class="cert-issuer">Google</span>
             <span class="cert-badge">Data Analytics</span>
           </div>
-          <div class="cert-title">Google Data Analytics Professional Certificate</div>
-          <div class="cert-date">2024</div>
+          <div class="cert-title">IBM Data Analysis with Python</div>
+          <div class="cert-date">2025</div>
         </div>
       </div>
 
       <!-- CERTIFICAT MICROSOFT -->
-      <div class="cert-card reveal" onclick="openLightbox('./images/cert-microsoft.jpg')">
+      <div class="cert-card reveal" onclick="openLightbox('./images/cert-microsoft.pdf', 'Microsoft Power BI Data Analyst')">
         <div class="cert-img-wrapper">
-          <img src="./images/cert-microsoft.jpg" alt="Microsoft Power BI Certificate"
-               onerror="this.parentElement.innerHTML='<div class=\'cert-img-fallback\'><span class=\'cert-icon-big\'>🏅</span><span>cert-microsoft.jpg</span></div>';" />
-          <div class="cert-img-overlay"><span>🔍 Voir en grand</span></div>
+          <canvas class="cert-canvas" data-pdf="./images/cert-microsoft.pdf"></canvas>
+          <div class="cert-img-fallback cert-fallback-hidden" id="fb-microsoft">
+            <span class="cert-icon-big">🏅</span><span>cert-microsoft.pdf</span>
+          </div>
+          <div class="cert-img-overlay"><span>🔍 Voir le certificat</span></div>
         </div>
         <div class="cert-info">
           <div class="cert-issuer-row">
@@ -1229,11 +1303,13 @@
       </div>
 
       <!-- CERTIFICAT IBM / COURSERA -->
-      <div class="cert-card reveal" onclick="openLightbox('./images/cert-ibm.jpg')">
+      <div class="cert-card reveal" onclick="openLightbox('./images/cert-ibm.pdf', 'Python for Data Science, AI & Development')">
         <div class="cert-img-wrapper">
-          <img src="./images/cert-ibm.jpg" alt="IBM Python Certificate"
-               onerror="this.parentElement.innerHTML='<div class=\'cert-img-fallback\'><span class=\'cert-icon-big\'>🏅</span><span>cert-ibm.jpg</span></div>';" />
-          <div class="cert-img-overlay"><span>🔍 Voir en grand</span></div>
+          <canvas class="cert-canvas" data-pdf="./images/cert-ibm.pdf"></canvas>
+          <div class="cert-img-fallback cert-fallback-hidden" id="fb-ibm">
+            <span class="cert-icon-big">🏅</span><span>cert-ibm.pdf</span>
+          </div>
+          <div class="cert-img-overlay"><span>🔍 Voir le certificat</span></div>
         </div>
         <div class="cert-info">
           <div class="cert-issuer-row">
@@ -1374,13 +1450,18 @@
 
     reveals.forEach(el => observer.observe(el));
 
-    // ── Lightbox pour les certificats ──
-    const lightbox      = document.getElementById('lightbox');
-    const lightboxImg   = document.getElementById('lightboxImg');
-    const lightboxClose = document.getElementById('lightboxClose');
+    // ── Lightbox PDF ──
+    const lightbox       = document.getElementById('lightbox');
+    const lightboxFrame  = document.getElementById('lightboxFrame');
+    const lightboxTitle  = document.getElementById('lightboxTitle');
+    const lightboxDl     = document.getElementById('lightboxDownload');
+    const lightboxClose  = document.getElementById('lightboxClose');
 
-    function openLightbox(src) {
-      lightboxImg.src = src;
+    function openLightbox(src, title) {
+      lightboxFrame.src  = src;
+      lightboxTitle.textContent = title || '';
+      lightboxDl.href    = src;
+      lightboxDl.download = src.split('/').pop();
       lightbox.classList.add('open');
       document.body.style.overflow = 'hidden';
     }
@@ -1388,11 +1469,57 @@
     function closeLightbox() {
       lightbox.classList.remove('open');
       document.body.style.overflow = '';
+      // Vide l'iframe pour stopper le rendu
+      setTimeout(() => { lightboxFrame.src = ''; }, 300);
     }
 
     lightboxClose.addEventListener('click', closeLightbox);
-    lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
+    lightbox.addEventListener('click', e => {
+      if (e.target === lightbox || e.target === document.querySelector('.lightbox-body')) closeLightbox();
+    });
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+
+    // ── Miniatures PDF via PDF.js (CDN) ──
+    const PDFJS_CDN = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';
+
+    function renderPDFthumbnail(canvas, pdfUrl) {
+      const wrapper = canvas.parentElement;
+      pdfjsLib.getDocument(pdfUrl).promise.then(pdf => {
+        return pdf.getPage(1);
+      }).then(page => {
+        const vp0    = page.getViewport({ scale: 1 });
+        // Calcule le scale pour remplir la largeur du wrapper
+        const scale  = (wrapper.clientWidth || 320) / vp0.width * 1.2;
+        const vp     = page.getViewport({ scale });
+        canvas.width  = vp.width;
+        canvas.height = vp.height;
+        canvas.style.width  = '100%';
+        canvas.style.height = '100%';
+        canvas.style.objectFit = 'cover';
+        return page.render({ canvasContext: canvas.getContext('2d'), viewport: vp }).promise;
+      }).catch(() => {
+        // PDF absent → affiche le fallback
+        canvas.style.display = 'none';
+        const fbId = 'fb-' + pdfUrl.split('/').pop().replace('cert-','').replace('.pdf','');
+        const fb   = document.getElementById(fbId);
+        if (fb) {
+          fb.classList.remove('cert-fallback-hidden');
+          fb.style.display = 'flex';
+        }
+      });
+    }
+
+    // Charge PDF.js puis rend toutes les miniatures
+    const script = document.createElement('script');
+    script.src   = PDFJS_CDN;
+    script.onload = () => {
+      pdfjsLib.GlobalWorkerOptions.workerSrc =
+        'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+      document.querySelectorAll('.cert-canvas').forEach(canvas => {
+        renderPDFthumbnail(canvas, canvas.dataset.pdf);
+      });
+    };
+    document.head.appendChild(script);
 
     // ── Form ──
     function handleForm(e) {
