@@ -603,16 +603,22 @@
     .cert-card:hover { transform: translateY(-5px); border-color: rgba(244, 162, 97, 0.4); }
     .cert-card:hover::before { transform: scaleX(1); }
 
-    /* Image du certificat */
+    /* Miniature certificat */
     .cert-img-wrapper {
       width: 100%;
-      aspect-ratio: 4/3;
+      height: 180px;
       overflow: hidden;
       background: var(--bg3);
       position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    .cert-img-wrapper img {
+    /* Canvas PDF.js — remplit le wrapper */
+    .cert-canvas {
+      position: absolute;
+      inset: 0;
       width: 100%;
       height: 100%;
       object-fit: cover;
@@ -620,44 +626,9 @@
       transition: transform 0.4s ease;
     }
 
-    .cert-card:hover .cert-img-wrapper img { transform: scale(1.04); }
+    .cert-card:hover .cert-canvas { transform: scale(1.04); }
 
-    /* Overlay "Voir en grand" */
-    .cert-img-overlay {
-      position: absolute;
-      inset: 0;
-      background: rgba(8, 11, 16, 0.6);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-      transition: opacity 0.3s;
-      backdrop-filter: blur(2px);
-    }
-
-    .cert-card:hover .cert-img-overlay { opacity: 1; }
-
-    .cert-img-overlay span {
-      font-family: var(--mono);
-      font-size: 0.72rem;
-      color: var(--white);
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      border: 1px solid rgba(255,255,255,0.3);
-      padding: 0.5rem 1rem;
-      border-radius: 2px;
-    }
-
-    /* Canvas miniature PDF */
-    .cert-canvas {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      position: absolute;
-      inset: 0;
-    }
-
+    /* Fallback affiché tant que le PDF ne charge pas */
     .cert-img-fallback {
       position: absolute;
       inset: 0;
@@ -665,23 +636,54 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 0.6rem;
+      gap: 0.5rem;
       background: var(--bg3);
+      z-index: 1;
     }
 
-    .cert-img-fallback .cert-icon-big { font-size: 2.5rem; }
+    .cert-img-fallback .cert-icon-big { font-size: 2rem; }
 
     .cert-img-fallback span {
       font-family: var(--mono);
-      font-size: 0.62rem;
+      font-size: 0.6rem;
       color: var(--text-dim);
       text-transform: uppercase;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.08em;
+      text-align: center;
+      padding: 0 0.5rem;
     }
+
+    /* Quand le canvas est rendu, on cache le fallback */
+    .cert-canvas.rendered + .cert-img-fallback { display: none; }
 
     .cert-fallback-hidden { display: none !important; }
 
-    .cert-img-wrapper { position: relative; }
+    /* Overlay "Voir le certificat" */
+    .cert-img-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(8, 11, 16, 0.65);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s;
+      backdrop-filter: blur(2px);
+      z-index: 3;
+    }
+
+    .cert-card:hover .cert-img-overlay { opacity: 1; }
+
+    .cert-img-overlay span {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--white);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      border: 1px solid rgba(255,255,255,0.3);
+      padding: 0.45rem 1rem;
+      border-radius: 2px;
+    }
 
     /* Infos sous l'image */
     .cert-info {
@@ -1568,9 +1570,10 @@
     const lightboxClose  = document.getElementById('lightboxClose');
 
     function openLightbox(src, title) {
-      lightboxFrame.src  = src;
+      const encoded = src.split('/').map((seg, i) => i === 0 ? seg : encodeURIComponent(seg)).join('/');
+      lightboxFrame.src  = encoded;
       lightboxTitle.textContent = title || '';
-      lightboxDl.href    = src;
+      lightboxDl.href    = encoded;
       lightboxDl.download = src.split('/').pop();
       lightbox.classList.add('open');
       document.body.style.overflow = 'hidden';
@@ -1589,44 +1592,82 @@
     });
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
 
-    // ── Miniatures PDF via PDF.js (CDN) ──
-    const PDFJS_CDN = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';
-
-    function renderPDFthumbnail(canvas, pdfUrl) {
-      const wrapper = canvas.parentElement;
-      pdfjsLib.getDocument(pdfUrl).promise.then(pdf => {
-        return pdf.getPage(1);
-      }).then(page => {
-        const vp0   = page.getViewport({ scale: 1 });
-        const scale = (wrapper.clientWidth || 280) / vp0.width * 1.2;
-        const vp    = page.getViewport({ scale });
-        canvas.width  = vp.width;
-        canvas.height = vp.height;
-        canvas.style.width  = '100%';
-        canvas.style.height = '100%';
-        canvas.style.objectFit = 'cover';
-        return page.render({ canvasContext: canvas.getContext('2d'), viewport: vp }).promise;
-      }).catch(() => {
-        canvas.style.display = 'none';
-        const fbId = canvas.dataset.fbid;
-        if (fbId) {
-          const fb = document.getElementById(fbId);
-          if (fb) { fb.classList.remove('cert-fallback-hidden'); fb.style.display = 'flex'; }
-        }
-      });
+    // ── Miniatures PDF via PDF.js ──
+    function encodePdfUrl(url) {
+      // Encode chaque segment du chemin séparément (préserve les / et ./)
+      return url.split('/').map((seg, i) => i === 0 ? seg : encodeURIComponent(seg)).join('/');
     }
 
-    // Charge PDF.js puis rend toutes les miniatures
-    const script = document.createElement('script');
-    script.src   = PDFJS_CDN;
-    script.onload = () => {
-      pdfjsLib.GlobalWorkerOptions.workerSrc =
-        'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
-      document.querySelectorAll('.cert-canvas').forEach(canvas => {
-        renderPDFthumbnail(canvas, canvas.dataset.pdf);
-      });
-    };
-    document.head.appendChild(script);
+    function showFallback(canvas) {
+      const fbId = canvas.dataset.fbid;
+      if (fbId) {
+        const fb = document.getElementById(fbId);
+        if (fb) { fb.classList.remove('cert-fallback-hidden'); fb.style.display = 'flex'; }
+      }
+      canvas.style.display = 'none';
+    }
+
+    function renderPDFthumbnail(canvas) {
+      const rawUrl    = canvas.dataset.pdf;
+      const pdfUrl    = encodePdfUrl(rawUrl);
+      const wrapper   = canvas.parentElement;
+
+      pdfjsLib.getDocument({ url: pdfUrl, cMapPacked: true }).promise
+        .then(pdf => pdf.getPage(1))
+        .then(page => {
+          const wrapW  = wrapper.offsetWidth  || 300;
+          const wrapH  = wrapper.offsetHeight || 180;
+          const vp0    = page.getViewport({ scale: 1 });
+          // Scale pour couvrir le wrapper (cover)
+          const scaleW = wrapW / vp0.width;
+          const scaleH = wrapH / vp0.height;
+          const scale  = Math.max(scaleW, scaleH) * 1.05;
+          const vp     = page.getViewport({ scale });
+
+          canvas.width  = vp.width;
+          canvas.height = vp.height;
+          // Centre le canvas dans le wrapper
+          canvas.style.position = 'absolute';
+          canvas.style.top      = '50%';
+          canvas.style.left     = '50%';
+          canvas.style.width    = 'auto';
+          canvas.style.height   = 'auto';
+          canvas.style.transform = 'translate(-50%, -50%)';
+          canvas.style.minWidth  = '100%';
+          canvas.style.minHeight = '100%';
+
+          return page.render({
+            canvasContext: canvas.getContext('2d'),
+            viewport: vp
+          }).promise;
+        })
+        .then(() => {
+          canvas.classList.add('rendered');
+        })
+        .catch(err => {
+          console.warn('PDF render failed:', rawUrl, err);
+          showFallback(canvas);
+        });
+    }
+
+    // Charge PDF.js depuis CDN puis rend toutes les miniatures
+    (function loadPDFjs() {
+      const s = document.createElement('script');
+      s.src = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';
+      s.onload = () => {
+        pdfjsLib.GlobalWorkerOptions.workerSrc =
+          'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+        // Attend que la page soit prête (les wrappers ont une taille)
+        requestAnimationFrame(() => {
+          document.querySelectorAll('.cert-canvas').forEach(renderPDFthumbnail);
+        });
+      };
+      s.onerror = () => {
+        // Si CDN échoue, affiche tous les fallbacks
+        document.querySelectorAll('.cert-canvas').forEach(showFallback);
+      };
+      document.head.appendChild(s);
+    })();
 
     // ── Form ──
     function handleForm(e) {
