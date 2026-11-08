@@ -6,18 +6,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Soro Kinignari Zakaria — Data Analyst à Abidjan</title>
   <meta name="description"
-    content="Portfolio de Soro Kinignari Zakaria, Data Analyst et économiste du développement à Abidjan : dashboards Power BI et Superset, SQL, Python, projets data et certifications IBM.">
+    content="Portfolio de Soro Kinignari Zakaria, Data Analyst certifié Microsoft Power BI (PL-300) à Abidjan : dashboards Power BI et Superset, SQL, Python, projets data et certifications.">
   <meta name="author" content="Soro Kinignari Zakaria">
   <meta name="theme-color" content="#080b10">
+  <link rel="canonical" href="https://portfolio-one-psi-26.vercel.app/">
 
-  <!-- Aperçu lors du partage (LinkedIn, WhatsApp, Facebook…)
-       À compléter dès que le domaine définitif est connu : og:url + URL absolue pour og:image -->
+  <!-- Aperçu lors du partage (LinkedIn, WhatsApp, Facebook…). Si le domaine change, mettre à jour
+       canonical, og:url, og:image et le JSON-LD ci-dessous. -->
   <meta property="og:type" content="website">
   <meta property="og:locale" content="fr_FR">
+  <meta property="og:url" content="https://portfolio-one-psi-26.vercel.app/">
+  <meta property="og:site_name" content="Soro Kinignari Zakaria — Portfolio">
   <meta property="og:title" content="Soro Kinignari Zakaria — Data Analyst">
   <meta property="og:description"
-    content="Dashboards Power BI & Superset, SQL, Python. Je transforme des données complexes en insights stratégiques.">
-  <meta property="og:image" content="/assets/img/og-image.jpg">
+    content="Data Analyst certifié Microsoft Power BI (PL-300). Dashboards Power BI & Superset, SQL, Python : je transforme des données complexes en insights stratégiques.">
+  <meta property="og:image" content="https://portfolio-one-psi-26.vercel.app/assets/img/og-image.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="Soro Kinignari Zakaria, Data Analyst à Abidjan">
@@ -38,7 +41,16 @@
     "@context": "https://schema.org",
     "@type": "Person",
     "name": "Soro Kinignari Zakaria",
+    "url": "https://portfolio-one-psi-26.vercel.app/",
+    "image": "https://portfolio-one-psi-26.vercel.app/assets/img/photo.webp",
     "jobTitle": "Data Analyst",
+    "hasCredential": {
+      "@type": "EducationalOccupationalCredential",
+      "name": "Microsoft Certified: Power BI Data Analyst Associate (PL-300)",
+      "credentialCategory": "certification",
+      "recognizedBy": { "@type": "Organization", "name": "Microsoft" },
+      "url": "https://learn.microsoft.com/fr-fr/users/zakariasoro-2480/credentials/certification/data-analyst-associate"
+    },
     "worksFor": { "@type": "Organization", "name": "SaH Analytics International" },
     "alumniOf": { "@type": "CollegeOrUniversity", "name": "Université Catholique de l'Afrique de l'Ouest (UCAO)" },
     "address": { "@type": "PostalAddress", "addressLocality": "Abidjan", "addressCountry": "CI" },
@@ -432,8 +444,28 @@
       animation: fadeUp 0.6s 0.2s ease both;
     }
 
+    .hero-cert {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-top: 1.6rem;
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      line-height: 1.5;
+      color: var(--gold);
+      text-decoration: none;
+      border: 1px solid rgba(244, 162, 97, 0.35);
+      padding: 0.5rem 0.9rem;
+      border-radius: 2px;
+      transition: background 0.2s;
+      animation: fadeUp 0.6s 0.25s ease both;
+    }
+
+    .hero-cert:hover { background: rgba(244, 162, 97, 0.1); }
+    .hero-cert svg { flex-shrink: 0; }
+
     .hero-cta {
-      margin-top: 3rem;
+      margin-top: 2.5rem;
       display: flex;
       gap: 1rem;
       flex-wrap: wrap;
@@ -727,6 +759,18 @@
       color: var(--text);
     }
 
+    .skill-cert {
+      display: inline-block;
+      margin-left: 0.4rem;
+      font-size: 0.6rem;
+      color: var(--gold);
+      border: 1px solid rgba(244, 162, 97, 0.4);
+      padding: 0.05rem 0.35rem;
+      border-radius: 2px;
+      vertical-align: 1px;
+      letter-spacing: 0.05em;
+    }
+
     .skill-level {
       display: flex;
       align-items: center;
@@ -988,6 +1032,91 @@
     .cert-verify:hover { border-bottom-color: var(--gold); }
 
     .cert-kind { font-style: italic; }
+
+    /* Certification mise en avant (Microsoft PL-300) */
+    .cert-featured {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+      background: var(--bg3);
+      border: 1px solid rgba(244, 162, 97, 0.35);
+      border-radius: 4px;
+      overflow: hidden;
+      position: relative;
+      margin-bottom: 1.5rem;
+    }
+
+    .cert-featured::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--gold), var(--accent));
+      z-index: 2;
+    }
+
+    .cert-featured .cert-thumb {
+      height: 100%;
+      min-height: 260px;
+      background: #1d2b4f;
+    }
+
+    .cert-featured .cert-thumb img { object-position: center; }
+    .cert-featured:hover .cert-thumb img { transform: scale(1.03); }
+
+    .cert-featured-info {
+      padding: 2.2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .cert-featured-title {
+      font-size: clamp(1.25rem, 2.2vw, 1.6rem);
+      font-weight: 800;
+      color: var(--white);
+      line-height: 1.25;
+    }
+
+    .cert-featured-info p {
+      font-size: 0.92rem;
+      color: var(--text-dim);
+      line-height: 1.7;
+    }
+
+    .cert-featured-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem 1.2rem;
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--text-dim);
+    }
+
+    .cert-featured-meta strong { color: var(--text); font-weight: 400; }
+
+    .cert-featured-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      margin-top: 0.4rem;
+    }
+
+    .btn-gold {
+      background: transparent;
+      color: var(--gold);
+      border: 1px solid rgba(244, 162, 97, 0.45);
+      padding: 0.7rem 1.3rem;
+      font-size: 0.72rem;
+    }
+
+    .btn-gold:hover { background: rgba(244, 162, 97, 0.12); }
+
+    @media (max-width: 800px) {
+      .cert-featured { grid-template-columns: 1fr; }
+      .cert-featured .cert-thumb { height: auto; min-height: 0; aspect-ratio: 1278 / 674; }
+      .cert-featured-info { padding: 1.6rem; }
+      .cert-featured-actions .btn { width: 100%; text-align: center; padding: 0.8rem; letter-spacing: 0.06em; }
+    }
 
     /* ─── VISIONNEUSE DE CERTIFICAT ─── */
     .lightbox {
@@ -1412,6 +1541,12 @@
           Data Analyst &amp; Économiste du Développement basé à Abidjan.<br>
           Je transforme des données complexes en insights stratégiques.
         </p>
+        <a href="#certifications" class="hero-cert">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M2.5 8.5l3.5 3.5 7.5-8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Certifié Microsoft Power BI Data Analyst (PL-300)
+        </a>
         <div class="hero-cta">
           <a href="#projects" class="btn btn-primary">Voir mes projets</a>
           <a href="#contact" class="btn btn-outline">Me contacter</a>
@@ -1484,8 +1619,8 @@
         </div>
         <div class="about-stats reveal">
           <div class="stat-card">
-            <div class="stat-num">11</div>
-            <div class="stat-label">Certifications IBM &amp; Udemy</div>
+            <div class="stat-num">12</div>
+            <div class="stat-label">Certifications dont Microsoft PL-300</div>
           </div>
           <div class="stat-card">
             <div class="stat-num">4</div>
@@ -1519,10 +1654,12 @@
               <ul class="tl-points">
                 <li>Conception et déploiement d'un <strong>dashboard 360° client</strong> sur Apache Superset, à partir
                   de données anonymisées.</li>
-                <li>Développement d'un outil de <strong>cartographie des compétences</strong> sous Excel pour optimiser
-                  la gestion des talents.</li>
+                <li>Contribution à l'écriture de <strong>requêtes SQL</strong> pour alimenter en données une
+                  application et un dashboard.</li>
                 <li>Contribution à la mise en place d'une <strong>pipeline d'intégration de données</strong> (DBT,
                   Dagster) au sein de l'équipe Data Engineering.</li>
+                <li>Développement d'un outil de <strong>cartographie des compétences</strong> sous Excel pour optimiser
+                  la gestion des talents.</li>
                 <li>Participation aux réunions de cadrage : définition des besoins clients et des orientations
                   analytiques.</li>
               </ul>
@@ -1533,6 +1670,12 @@
         <div class="reveal">
           <h3 class="timeline-heading">Formation</h3>
           <ol class="timeline">
+            <li class="current">
+              <div class="tl-date">Nov. 2026</div>
+              <div class="tl-title">Microsoft Certified : Power BI Data Analyst Associate</div>
+              <div class="tl-org">Microsoft · Examen PL-300 ·
+                <a class="tl-link" href="#certifications">voir la certification</a></div>
+            </li>
             <li>
               <div class="tl-date">Juin — Nov. 2025</div>
               <div class="tl-title">11 certifications en data</div>
@@ -1576,7 +1719,7 @@
         <div class="skill-group reveal">
           <h3 class="skill-group-title">Visualisation &amp; BI</h3>
           <ul class="skill-list">
-            <li class="skill-item"><span class="skill-name">Power BI</span>
+            <li class="skill-item"><span class="skill-name">Power BI<span class="skill-cert">PL-300</span></span>
               <span class="skill-level">Avancé <span class="level-meter" data-level="3" aria-hidden="true"><i></i><i></i><i></i></span></span></li>
             <li class="skill-item"><span class="skill-name">Apache Superset</span>
               <span class="skill-level">Avancé <span class="level-meter" data-level="3" aria-hidden="true"><i></i><i></i><i></i></span></span></li>
@@ -1705,6 +1848,39 @@
     <section id="certifications">
       <div class="section-label">Certifications</div>
       <h2>Mes certifications</h2>
+
+      <article class="cert-featured reveal">
+        <button type="button" class="cert-thumb" data-cert="microsoft-pl-300-power-bi-data-analyst"
+          data-title="Microsoft Certified : Power BI Data Analyst Associate (PL-300)"
+          data-verify="https://learn.microsoft.com/fr-fr/users/zakariasoro-2480/credentials/certification/data-analyst-associate">
+          <img src="assets/certificats/microsoft-pl-300-power-bi-data-analyst-mini.webp" width="640" height="338" alt=""
+            decoding="async">
+          <span class="cert-img-overlay"><span>🔍 Voir le certificat</span></span>
+          <span class="visually-hidden">Agrandir le certificat</span>
+        </button>
+        <div class="cert-featured-info">
+          <div class="cert-issuer-row">
+            <span class="cert-issuer">Microsoft</span>
+            <span class="cert-badge">Examen PL-300</span>
+          </div>
+          <h3 class="cert-featured-title">Microsoft Certified : Power BI Data Analyst Associate</h3>
+          <p>
+            Certification Microsoft obtenue par examen. Elle valide la préparation et la modélisation des données,
+            la création de visualisations et d'analyses, ainsi que le déploiement et la gestion de solutions Power BI.
+          </p>
+          <div class="cert-featured-meta">
+            <span>Obtenue le <strong><time datetime="2026-11-07">7 nov. 2026</time></strong></span>
+            <span>Valide jusqu'au <strong><time datetime="2027-11-07">7 nov. 2027</time></strong></span>
+            <span>ID <strong>B122E5427D7CBA0D</strong></span>
+          </div>
+          <div class="cert-featured-actions">
+            <a class="btn btn-gold"
+              href="https://learn.microsoft.com/fr-fr/users/zakariasoro-2480/credentials/certification/data-analyst-associate"
+              target="_blank" rel="noopener">Vérifier sur Microsoft Learn ↗</a>
+          </div>
+        </div>
+      </article>
+
       <div class="certs-grid">
 
         <article class="cert-card reveal">
