@@ -56,7 +56,7 @@
     "address": { "@type": "PostalAddress", "addressLocality": "Abidjan", "addressCountry": "CI" },
     "email": "mailto:sorokinignari@gmail.com",
     "knowsAbout": ["Data Analysis", "Power BI", "Apache Superset", "SQL", "Python", "R", "Excel", "DBT", "Dagster", "Économie du développement"],
-    "sameAs": ["https://github.com/sparozak"]
+    "sameAs": ["https://www.linkedin.com/in/kinignari-zakaria-soro-652789212/", "https://github.com/sparozak"]
   }
   </script>
 
@@ -1321,7 +1321,7 @@
     }
 
     .contact-link:hover { border-color: var(--accent); color: var(--accent2); transform: translateX(6px); }
-    .contact-link-icon { font-size: 1.1rem; width: 1.6rem; text-align: center; flex-shrink: 0; }
+    .contact-link-icon { font-size: 1.1rem; width: 1.6rem; text-align: center; flex-shrink: 0; font-weight: 700; white-space: nowrap; }
 
     .contact-form { display: flex; flex-direction: column; gap: 1rem; }
 
@@ -2143,6 +2143,13 @@
               </a>
             </li>
             <li>
+              <a href="https://www.linkedin.com/in/kinignari-zakaria-soro-652789212/" class="contact-link"
+                target="_blank" rel="noopener">
+                <span class="contact-link-icon" aria-hidden="true">in</span>
+                LinkedIn — Kinignari Zakaria Soro
+              </a>
+            </li>
+            <li>
               <a href="tel:+2250173980053" class="contact-link">
                 <span class="contact-link-icon" aria-hidden="true">☎</span>
                 +225 01 73 98 00 53
@@ -2156,11 +2163,10 @@
             </li>
             <li>
               <a href="https://github.com/sparozak" class="contact-link" target="_blank" rel="noopener">
-                <span class="contact-link-icon" aria-hidden="true">{ }</span>
+                <span class="contact-link-icon" aria-hidden="true">{}</span>
                 github.com/sparozak
               </a>
             </li>
-            <!-- LinkedIn : à ajouter dès que l'URL du profil est connue -->
           </ul>
         </div>
 
@@ -2304,9 +2310,9 @@
     });
 
     // ── Formulaire de contact ──
-    // Clé Web3Forms (gratuit) : https://web3forms.com → saisir son email → la clé arrive par mail.
-    // Tant qu'elle est vide, le formulaire ouvre la messagerie du visiteur avec le message pré-rempli.
-    const WEB3FORMS_KEY = '';
+    // Clé Web3Forms (publique par conception, liée à sorokinignari@gmail.com).
+    // Si elle est vidée, le formulaire ouvre la messagerie du visiteur avec le message pré-rempli.
+    const WEB3FORMS_KEY = '0831a3bc-cb36-4a45-841b-f0eb4088b647';
     const CONTACT_EMAIL = 'sorokinignari@gmail.com';
 
     const form       = document.getElementById('contactForm');
