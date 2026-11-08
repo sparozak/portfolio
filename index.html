@@ -4,11 +4,53 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Soro Kinignari Zakaria — Data Analyst</title>
+  <title>Soro Kinignari Zakaria — Data Analyst à Abidjan</title>
+  <meta name="description"
+    content="Portfolio de Soro Kinignari Zakaria, Data Analyst et économiste du développement à Abidjan : dashboards Power BI et Superset, SQL, Python, projets data et certifications IBM.">
+  <meta name="author" content="Soro Kinignari Zakaria">
+  <meta name="theme-color" content="#080b10">
+
+  <!-- Aperçu lors du partage (LinkedIn, WhatsApp, Facebook…)
+       À compléter dès que le domaine définitif est connu : og:url + URL absolue pour og:image -->
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="fr_FR">
+  <meta property="og:title" content="Soro Kinignari Zakaria — Data Analyst">
+  <meta property="og:description"
+    content="Dashboards Power BI & Superset, SQL, Python. Je transforme des données complexes en insights stratégiques.">
+  <meta property="og:image" content="/assets/img/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Soro Kinignari Zakaria, Data Analyst à Abidjan">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
     href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;700;800&display=swap"
     rel="stylesheet">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Soro Kinignari Zakaria",
+    "jobTitle": "Data Analyst",
+    "worksFor": { "@type": "Organization", "name": "SaH Analytics International" },
+    "alumniOf": { "@type": "CollegeOrUniversity", "name": "Université Catholique de l'Afrique de l'Ouest (UCAO)" },
+    "address": { "@type": "PostalAddress", "addressLocality": "Abidjan", "addressCountry": "CI" },
+    "email": "mailto:sorokinignari@gmail.com",
+    "knowsAbout": ["Data Analysis", "Power BI", "Apache Superset", "SQL", "Python", "R", "Excel", "DBT", "Dagster", "Économie du développement"],
+    "sameAs": ["https://github.com/sparozak"]
+  }
+  </script>
+
+  <!-- Active les animations "reveal" uniquement si JavaScript fonctionne -->
+  <script>document.documentElement.classList.add('js');</script>
+
   <style>
     :root {
       --bg: #080b10;
@@ -17,12 +59,15 @@
       --border: #1e2a35;
       --accent: #e63946;
       --accent2: #ff6b6b;
+      --accent-strong: #d62839; /* fond des boutons : contraste AA avec le texte blanc */
       --gold: #f4a261;
+      --ok: #2ecc71;
       --text: #c9d8e8;
-      --text-dim: #607080;
+      --text-dim: #8090a2;      /* contraste ≥ 5:1 sur tous les fonds */
       --white: #eaf2fb;
       --mono: 'Space Mono', monospace;
       --sans: 'Syne', sans-serif;
+      --gutter: 4rem;
     }
 
     *, *::before, *::after {
@@ -31,19 +76,67 @@
       padding: 0;
     }
 
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; scroll-padding-top: 5rem; }
 
     body {
       background: var(--bg);
       color: var(--text);
       font-family: var(--sans);
       overflow-x: hidden;
-      cursor: none;
     }
 
-    /* Custom cursor */
+    img { max-width: 100%; }
+
+    :focus-visible {
+      outline: 2px solid var(--gold);
+      outline-offset: 3px;
+    }
+
+    .skip-link {
+      position: absolute;
+      left: 1rem;
+      top: -100px;
+      z-index: 9000;
+      background: var(--accent-strong);
+      color: #fff;
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      padding: 0.6rem 1rem;
+      text-decoration: none;
+    }
+
+    .skip-link:focus { top: 1rem; }
+
+    .visually-hidden {
+      position: absolute !important;
+      width: 1px; height: 1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      white-space: nowrap;
+    }
+
+    /* ─── CURSEUR PERSONNALISÉ (souris uniquement, jamais sur écran tactile) ─── */
+    .cursor, .cursor-ring { display: none; }
+
+    .has-cursor .cursor,
+    .has-cursor .cursor-ring { display: block; }
+
+    .has-cursor body,
+    .has-cursor a,
+    .has-cursor button { cursor: none; }
+
+    .has-cursor input,
+    .has-cursor textarea { cursor: text; }
+
+    .has-cursor dialog,
+    .has-cursor dialog * { cursor: auto; }
+
+    .has-cursor dialog a,
+    .has-cursor dialog button { cursor: pointer; }
+
     .cursor {
       position: fixed;
+      top: 0; left: 0;
       width: 12px;
       height: 12px;
       background: var(--accent);
@@ -51,12 +144,13 @@
       pointer-events: none;
       z-index: 9999;
       transform: translate(-50%, -50%);
-      transition: transform 0.1s, width 0.2s, height 0.2s, background 0.2s;
+      transition: width 0.2s, height 0.2s, opacity 0.2s;
       mix-blend-mode: screen;
     }
 
     .cursor-ring {
       position: fixed;
+      top: 0; left: 0;
       width: 40px;
       height: 40px;
       border: 1px solid rgba(230, 57, 70, 0.5);
@@ -64,8 +158,12 @@
       pointer-events: none;
       z-index: 9998;
       transform: translate(-50%, -50%);
-      transition: transform 0.15s ease-out, width 0.3s, height 0.3s;
+      transition: width 0.3s, height 0.3s, opacity 0.2s;
     }
+
+    .cursor-hover .cursor { width: 20px; height: 20px; }
+    .cursor-hover .cursor-ring { width: 60px; height: 60px; }
+    .cursor-out .cursor, .cursor-out .cursor-ring { opacity: 0; }
 
     /* Noise overlay */
     body::before {
@@ -86,9 +184,10 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 1.2rem 4rem;
+      padding: 1.2rem var(--gutter);
       background: rgba(8, 11, 16, 0.85);
       backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
       border-bottom: 1px solid var(--border);
     }
 
@@ -102,7 +201,8 @@
 
     .nav-links {
       display: flex;
-      gap: 2.5rem;
+      align-items: center;
+      gap: 2rem;
       list-style: none;
     }
 
@@ -117,7 +217,7 @@
       position: relative;
     }
 
-    .nav-links a::after {
+    .nav-links a:not(.nav-cv)::after {
       content: '';
       position: absolute;
       bottom: -4px; left: 0;
@@ -127,7 +227,44 @@
     }
 
     .nav-links a:hover { color: var(--white); }
-    .nav-links a:hover::after { width: 100%; }
+    .nav-links a:hover::after,
+    .nav-links a.active::after { width: 100%; }
+    .nav-links a.active { color: var(--accent2); }
+
+    .nav-links .nav-cv {
+      color: var(--gold);
+      border: 1px solid rgba(244, 162, 97, 0.4);
+      padding: 0.4rem 0.9rem;
+      border-radius: 2px;
+      transition: background 0.2s;
+    }
+
+    .nav-links .nav-cv:hover { background: rgba(244, 162, 97, 0.12); color: var(--gold); }
+
+    .nav-toggle {
+      display: none;
+      width: 44px;
+      height: 40px;
+      background: none;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .nav-toggle span {
+      display: block;
+      width: 18px;
+      height: 2px;
+      background: var(--text);
+      transition: transform 0.25s, opacity 0.25s;
+    }
+
+    .nav-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+    .nav-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
     /* ─── HERO ─── */
     #hero {
@@ -135,7 +272,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 4rem;
+      padding: 0 var(--gutter);
       position: relative;
       overflow: hidden;
       gap: 4rem;
@@ -151,6 +288,7 @@
       background-size: 60px 60px;
       opacity: 0.3;
       mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%);
+      -webkit-mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%);
     }
 
     #hero::after {
@@ -228,7 +366,6 @@
       50%       { transform: translateY(-7px); }
     }
 
-    /* Photo frame — charge photo.jpg depuis la racine du repo */
     .hero-photo-frame {
       width: 100%;
       height: 100%;
@@ -237,17 +374,15 @@
       border: 2px solid var(--border);
       position: relative;
       z-index: 2;
+      background: var(--bg3);
     }
 
     .hero-photo-frame img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: center top;
       display: block;
     }
-
-    @media (max-width: 900px) { .hero-photo-wrapper { display: none; } }
 
     .hero-tag {
       display: inline-flex;
@@ -255,7 +390,7 @@
       gap: 0.5rem;
       font-family: var(--mono);
       font-size: 0.75rem;
-      color: var(--accent);
+      color: var(--accent2);
       border: 1px solid rgba(230, 57, 70, 0.3);
       padding: 0.3rem 0.8rem;
       border-radius: 2px;
@@ -315,17 +450,16 @@
       padding: 0.85rem 2rem;
       border-radius: 2px;
       transition: all 0.25s;
-      cursor: none;
     }
 
-    .btn-primary { background: var(--accent); color: var(--white); border: 1px solid var(--accent); }
-    .btn-primary:hover { background: transparent; color: var(--accent); }
+    .btn-primary { background: var(--accent-strong); color: #fff; border: 1px solid var(--accent-strong); }
+    .btn-primary:hover { background: transparent; color: var(--accent2); border-color: var(--accent); }
     .btn-outline { background: transparent; color: var(--text); border: 1px solid var(--border); }
-    .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent2); }
 
     .hero-scroll {
       position: absolute;
-      bottom: 2.5rem; left: 4rem;
+      bottom: 2.5rem; left: var(--gutter);
       display: flex;
       align-items: center;
       gap: 1rem;
@@ -350,12 +484,12 @@
     }
 
     /* ─── SECTIONS ─── */
-    section { padding: 7rem 4rem; position: relative; }
+    section { padding: 7rem var(--gutter); position: relative; }
 
     .section-label {
       font-family: var(--mono);
       font-size: 0.7rem;
-      color: var(--accent);
+      color: var(--accent2);
       letter-spacing: 0.2em;
       text-transform: uppercase;
       margin-bottom: 0.8rem;
@@ -426,17 +560,134 @@
       letter-spacing: 0.1em;
     }
 
+    /* ─── PARCOURS ─── */
+    #parcours { background: var(--bg); }
+
+    .timeline-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    .timeline-heading {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      font-weight: 400;
+      color: var(--accent2);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      margin-bottom: 2rem;
+      padding-bottom: 0.8rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .timeline {
+      list-style: none;
+      border-left: 1px solid var(--border);
+      padding-left: 1.75rem;
+      margin-left: 5px;
+    }
+
+    .timeline > li {
+      position: relative;
+      padding-bottom: 2.2rem;
+    }
+
+    .timeline > li:last-child { padding-bottom: 0; }
+
+    .timeline > li::before {
+      content: '';
+      position: absolute;
+      left: calc(-1.75rem - 6px);
+      top: 0.3rem;
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      background: var(--bg);
+      border: 2px solid var(--accent);
+    }
+
+    .timeline > li.current::before {
+      background: var(--accent);
+      box-shadow: 0 0 0 5px rgba(230, 57, 70, 0.15);
+    }
+
+    .tl-date {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--gold);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .tl-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--white);
+      margin: 0.35rem 0 0.25rem;
+      line-height: 1.35;
+    }
+
+    .tl-org {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      color: var(--text-dim);
+      line-height: 1.6;
+    }
+
+    .tl-points {
+      list-style: none;
+      margin-top: 0.9rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .tl-points li {
+      font-size: 0.92rem;
+      line-height: 1.65;
+      color: var(--text);
+      padding-left: 1.1rem;
+      position: relative;
+    }
+
+    .tl-points li::before {
+      content: '▹';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+    }
+
+    .tl-points strong { color: var(--white); font-weight: 600; }
+
+    .tl-link {
+      color: var(--accent2);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(255, 107, 107, 0.35);
+    }
+
+    .tl-link:hover { border-bottom-color: var(--accent2); }
+
     /* ─── SKILLS ─── */
-    #skills { background: var(--bg); }
+    #skills { background: var(--bg2); }
+
+    .skills-intro {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      color: var(--text-dim);
+      margin: -2.5rem 0 2.5rem;
+      line-height: 1.7;
+    }
 
     .skills-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
       gap: 1.5rem;
     }
 
     .skill-group {
-      background: var(--bg2);
+      background: var(--bg3);
       border: 1px solid var(--border);
       border-radius: 4px;
       padding: 2rem;
@@ -448,53 +699,80 @@
     .skill-group-title {
       font-family: var(--mono);
       font-size: 0.7rem;
-      color: var(--accent);
+      font-weight: 400;
+      color: var(--accent2);
       text-transform: uppercase;
       letter-spacing: 0.15em;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1rem;
       padding-bottom: 0.8rem;
       border-bottom: 1px solid var(--border);
     }
 
-    .skill-item { margin-bottom: 1.1rem; }
+    .skill-list { list-style: none; }
 
-    .skill-header {
+    .skill-item {
       display: flex;
+      align-items: center;
       justify-content: space-between;
+      gap: 1rem;
+      padding: 0.7rem 0;
+      border-bottom: 1px dashed var(--border);
+    }
+
+    .skill-item:last-child { border-bottom: none; }
+
+    .skill-name {
       font-family: var(--mono);
       font-size: 0.82rem;
       color: var(--text);
-      margin-bottom: 0.4rem;
     }
 
-    .skill-pct { color: var(--text-dim); }
+    .skill-level {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: var(--mono);
+      font-size: 0.66rem;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      white-space: nowrap;
+    }
 
-    .skill-bar-bg {
-      height: 3px;
+    .level-meter { display: flex; gap: 3px; }
+
+    .level-meter i {
+      display: block;
+      width: 14px;
+      height: 4px;
+      border-radius: 1px;
       background: var(--border);
-      border-radius: 2px;
-      overflow: hidden;
     }
 
-    .skill-bar-fill {
-      height: 100%;
+    .level-meter[data-level="3"] i,
+    .level-meter[data-level="2"] i:nth-child(-n+2),
+    .level-meter[data-level="1"] i:first-child {
       background: linear-gradient(90deg, var(--accent), var(--accent2));
-      border-radius: 2px;
-      width: 0;
-      transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .tool-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.4rem;
     }
 
     /* ─── PROJECTS ─── */
-    #projects { background: var(--bg2); }
+    #projects { background: var(--bg); }
 
     .projects-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(min(340px, 100%), 1fr));
       gap: 1.5rem;
     }
 
     .project-card {
-      background: var(--bg3);
+      background: var(--bg2);
       border: 1px solid var(--border);
       border-radius: 4px;
       padding: 2.2rem;
@@ -533,7 +811,7 @@
     }
 
     .project-card p {
-      font-size: 0.88rem;
+      font-size: 0.9rem;
       color: var(--text-dim);
       line-height: 1.7;
       margin-bottom: 1.5rem;
@@ -549,16 +827,17 @@
     .tag {
       font-family: var(--mono);
       font-size: 0.68rem;
-      color: var(--accent);
+      color: var(--accent2);
       background: rgba(230, 57, 70, 0.08);
-      border: 1px solid rgba(230, 57, 70, 0.2);
+      border: 1px solid rgba(230, 57, 70, 0.25);
       padding: 0.2rem 0.6rem;
       border-radius: 2px;
       letter-spacing: 0.05em;
+      list-style: none;
     }
 
     /* ─── CERTIFICATIONS ─── */
-    #certifications { background: var(--bg); }
+    #certifications { background: var(--bg2); }
 
     .certs-grid {
       display: grid;
@@ -566,26 +845,19 @@
       gap: 1.2rem;
     }
 
-    @media (max-width: 1200px) {
-      .certs-grid { grid-template-columns: repeat(3, 1fr); }
-    }
-
-    @media (max-width: 800px) {
-      .certs-grid { grid-template-columns: repeat(2, 1fr); }
-    }
-
-    @media (max-width: 500px) {
-      .certs-grid { grid-template-columns: 1fr; }
-    }
+    @media (max-width: 1200px) { .certs-grid { grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 800px)  { .certs-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 520px)  { .certs-grid { grid-template-columns: 1fr; } }
 
     .cert-card {
-      background: var(--bg2);
+      background: var(--bg3);
       border: 1px solid var(--border);
       border-radius: 4px;
       overflow: hidden;
       position: relative;
+      display: flex;
+      flex-direction: column;
       transition: transform 0.3s, border-color 0.3s;
-      cursor: none;
     }
 
     .cert-card::before {
@@ -603,62 +875,30 @@
     .cert-card:hover { transform: translateY(-5px); border-color: rgba(244, 162, 97, 0.4); }
     .cert-card:hover::before { transform: scaleX(1); }
 
-    /* Miniature certificat */
-    .cert-img-wrapper {
+    .cert-thumb {
+      display: block;
       width: 100%;
       height: 180px;
-      overflow: hidden;
-      background: var(--bg3);
+      padding: 0;
+      border: 0;
+      background: #f4f5f7;
       position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      overflow: hidden;
+      font: inherit;
+      cursor: pointer;
     }
 
-    /* Canvas PDF.js — remplit le wrapper */
-    .cert-canvas {
-      position: absolute;
-      inset: 0;
+    .cert-thumb img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      object-position: top center;
       display: block;
       transition: transform 0.4s ease;
     }
 
-    .cert-card:hover .cert-canvas { transform: scale(1.04); }
+    .cert-card:hover .cert-thumb img { transform: scale(1.04); }
 
-    /* Fallback affiché tant que le PDF ne charge pas */
-    .cert-img-fallback {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
-      background: var(--bg3);
-      z-index: 1;
-    }
-
-    .cert-img-fallback .cert-icon-big { font-size: 2rem; }
-
-    .cert-img-fallback span {
-      font-family: var(--mono);
-      font-size: 0.6rem;
-      color: var(--text-dim);
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      text-align: center;
-      padding: 0 0.5rem;
-    }
-
-    /* Quand le canvas est rendu, on cache le fallback */
-    .cert-canvas.rendered + .cert-img-fallback { display: none; }
-
-    .cert-fallback-hidden { display: none !important; }
-
-    /* Overlay "Voir le certificat" */
     .cert-img-overlay {
       position: absolute;
       inset: 0;
@@ -669,10 +909,10 @@
       opacity: 0;
       transition: opacity 0.3s;
       backdrop-filter: blur(2px);
-      z-index: 3;
     }
 
-    .cert-card:hover .cert-img-overlay { opacity: 1; }
+    .cert-thumb:hover .cert-img-overlay,
+    .cert-thumb:focus-visible .cert-img-overlay { opacity: 1; }
 
     .cert-img-overlay span {
       font-family: var(--mono);
@@ -680,20 +920,23 @@
       color: var(--white);
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      border: 1px solid rgba(255,255,255,0.3);
+      border: 1px solid rgba(255, 255, 255, 0.3);
       padding: 0.45rem 1rem;
       border-radius: 2px;
     }
 
-    /* Infos sous l'image */
     .cert-info {
-      padding: 1.5rem;
+      padding: 1.4rem 1.5rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
     }
 
     .cert-issuer-row {
       display: flex;
       align-items: center;
       justify-content: space-between;
+      gap: 0.5rem;
       margin-bottom: 0.6rem;
     }
 
@@ -713,6 +956,7 @@
       padding: 0.2rem 0.5rem;
       border-radius: 2px;
       letter-spacing: 0.08em;
+      white-space: nowrap;
     }
 
     .cert-title {
@@ -720,110 +964,125 @@
       font-weight: 700;
       color: var(--white);
       line-height: 1.4;
-      margin-bottom: 0.4rem;
+      margin-bottom: 0.8rem;
     }
 
-    .cert-date {
+    .cert-meta {
+      margin-top: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
       font-family: var(--mono);
       font-size: 0.7rem;
       color: var(--text-dim);
     }
 
-    /* ─── LIGHTBOX PDF ─── */
-    .lightbox {
-      position: fixed;
-      inset: 0;
-      background: rgba(8, 11, 16, 0.97);
-      z-index: 8000;
-      display: flex;
-      flex-direction: column;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s;
-      backdrop-filter: blur(10px);
+    .cert-verify {
+      color: var(--gold);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      border-bottom: 1px solid rgba(244, 162, 97, 0.35);
     }
 
-    .lightbox.open { opacity: 1; pointer-events: all; }
+    .cert-verify:hover { border-bottom-color: var(--gold); }
+
+    .cert-kind { font-style: italic; }
+
+    /* ─── VISIONNEUSE DE CERTIFICAT ─── */
+    .lightbox {
+      width: min(1100px, calc(100% - 2rem));
+      max-width: none;
+      max-height: calc(100% - 2rem);
+      margin: auto;
+      padding: 0;
+      background: var(--bg2);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .lightbox[open] {
+      display: flex;
+      flex-direction: column;
+      animation: fadeIn 0.25s ease;
+    }
+
+    .lightbox::backdrop {
+      background: rgba(8, 11, 16, 0.92);
+      backdrop-filter: blur(6px);
+    }
+
+    @keyframes fadeIn { from { opacity: 0; transform: scale(0.98); } to { opacity: 1; transform: none; } }
 
     .lightbox-header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 1rem 2rem;
+      flex-wrap: wrap;
+      padding: 0.9rem 1.2rem;
       border-bottom: 1px solid var(--border);
-      flex-shrink: 0;
-      gap: 1rem;
+      gap: 0.8rem;
     }
 
     .lightbox-title {
       font-family: var(--mono);
       font-size: 0.78rem;
-      color: var(--text-dim);
-      letter-spacing: 0.1em;
+      font-weight: 400;
+      color: var(--text);
+      letter-spacing: 0.08em;
       text-transform: uppercase;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      flex: 1 1 260px;
+      min-width: 0;
+      margin: 0;
     }
 
     .lightbox-actions {
       display: flex;
+      flex-wrap: wrap;
       align-items: center;
-      gap: 0.8rem;
-      flex-shrink: 0;
+      gap: 0.6rem;
     }
 
-    .lightbox-btn-dl {
+    .lightbox-btn {
       font-family: var(--mono);
       font-size: 0.72rem;
-      color: var(--gold);
+      letter-spacing: 0.08em;
       text-decoration: none;
-      letter-spacing: 0.1em;
-      border: 1px solid rgba(244, 162, 97, 0.35);
-      padding: 0.4rem 1rem;
+      padding: 0.45rem 0.9rem;
       border-radius: 2px;
-      transition: background 0.2s, color 0.2s;
-      cursor: none;
-    }
-
-    .lightbox-btn-dl:hover {
-      background: rgba(244, 162, 97, 0.12);
-    }
-
-    .lightbox-close {
-      font-family: var(--mono);
-      font-size: 0.72rem;
-      color: var(--text-dim);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      cursor: none;
       background: none;
-      border: 1px solid var(--border);
-      padding: 0.4rem 1rem;
-      border-radius: 2px;
-      transition: color 0.2s, border-color 0.2s;
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
     }
 
-    .lightbox-close:hover { color: var(--accent); border-color: var(--accent); }
+    .lightbox-btn-gold { color: var(--gold); border: 1px solid rgba(244, 162, 97, 0.35); }
+    .lightbox-btn-gold:hover { background: rgba(244, 162, 97, 0.12); }
+    .lightbox-btn-close { color: var(--text-dim); border: 1px solid var(--border); text-transform: uppercase; }
+    .lightbox-btn-close:hover { color: var(--accent2); border-color: var(--accent); }
 
     .lightbox-body {
       flex: 1;
-      overflow: hidden;
-      padding: 1.5rem 2rem;
+      overflow: auto;
+      padding: 1rem;
       display: flex;
-      align-items: stretch;
+      align-items: flex-start;
+      justify-content: center;
     }
 
-    .lightbox-body iframe {
+    .lightbox-body img {
+      display: block;
       width: 100%;
-      height: 100%;
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      background: #fff;
+      height: auto;
+      max-height: calc(100vh - 9rem);
+      object-fit: contain;
+      border-radius: 2px;
     }
 
     /* ─── CV ─── */
     #cv { background: var(--bg); text-align: center; }
+
+    #cv .section-label { justify-content: center; }
 
     .cv-inner {
       max-width: 700px;
@@ -841,6 +1100,7 @@
       position: absolute;
       inset: 0;
       background: radial-gradient(ellipse at 50% 0%, rgba(230, 57, 70, 0.06) 0%, transparent 70%);
+      pointer-events: none;
     }
 
     .cv-inner p {
@@ -874,20 +1134,21 @@
       padding: 0.9rem 2rem;
       border-radius: 2px;
       transition: all 0.25s;
-      cursor: none;
       width: 100%;
       max-width: 320px;
     }
 
-    .btn-download { background: var(--accent); color: var(--white); border: 1px solid var(--accent); }
-    .btn-download:hover { background: transparent; color: var(--accent); }
-    .btn-view { background: transparent; color: var(--text-dim); border: 1px solid var(--border); }
+    .btn-download { background: var(--accent-strong); color: #fff; border: 1px solid var(--accent-strong); }
+    .btn-download:hover { background: transparent; color: var(--accent2); border-color: var(--accent); }
+    .btn-view { background: transparent; color: var(--text); border: 1px solid var(--border); }
     .btn-view:hover { border-color: var(--gold); color: var(--gold); }
 
     .cv-divider {
       display: flex;
       align-items: center;
       gap: 1rem;
+      width: 100%;
+      max-width: 320px;
       color: var(--text-dim);
       font-family: var(--mono);
       font-size: 0.7rem;
@@ -913,7 +1174,7 @@
       margin-bottom: 2.5rem;
     }
 
-    .contact-links { display: flex; flex-direction: column; gap: 1rem; }
+    .contact-links { display: flex; flex-direction: column; gap: 1rem; list-style: none; }
 
     .contact-link {
       display: flex;
@@ -927,10 +1188,11 @@
       border: 1px solid var(--border);
       border-radius: 2px;
       transition: all 0.25s;
+      overflow-wrap: anywhere;
     }
 
-    .contact-link:hover { border-color: var(--accent); color: var(--accent); transform: translateX(6px); }
-    .contact-link-icon { font-size: 1.1rem; }
+    .contact-link:hover { border-color: var(--accent); color: var(--accent2); transform: translateX(6px); }
+    .contact-link-icon { font-size: 1.1rem; width: 1.6rem; text-align: center; flex-shrink: 0; }
 
     .contact-form { display: flex; flex-direction: column; gap: 1rem; }
 
@@ -955,744 +1217,982 @@
       font-size: 0.85rem;
       outline: none;
       transition: border-color 0.2s;
-      resize: none;
+      resize: vertical;
     }
+
+    .form-group input::placeholder,
+    .form-group textarea::placeholder { color: #5d6b7a; }
 
     .form-group input:focus,
     .form-group textarea:focus { border-color: var(--accent); }
-    .form-group textarea { height: 120px; }
+
+    .form-group textarea { min-height: 140px; }
+
+    .contact-form .btn { border: none; align-self: flex-start; }
+    .contact-form .btn:disabled { opacity: 0.6; }
+
+    .hp-field { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+
+    .form-status {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      line-height: 1.6;
+      min-height: 1.3em;
+    }
+
+    .form-status.ok { color: var(--ok); }
+    .form-status.err { color: var(--accent2); }
+    .form-status a { color: inherit; }
 
     /* ─── FOOTER ─── */
     footer {
       background: var(--bg);
       border-top: 1px solid var(--border);
-      padding: 2rem 4rem;
+      padding: 2rem var(--gutter);
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 1rem;
     }
 
     footer p { font-family: var(--mono); font-size: 0.72rem; color: var(--text-dim); }
-    footer span { color: var(--accent); }
+    footer span { color: var(--accent2); }
 
     /* ─── REVEAL ─── */
-    .reveal {
+    .js .reveal {
       opacity: 0;
       transform: translateY(30px);
       transition: opacity 0.7s ease, transform 0.7s ease;
     }
 
-    .reveal.visible { opacity: 1; transform: none; }
+    .js .reveal.visible { opacity: 1; transform: none; }
 
     /* ─── RESPONSIVE ─── */
+    @media (max-width: 1080px) {
+      .nav-toggle { display: inline-flex; }
+
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        padding: 0.5rem var(--gutter) 1.2rem;
+        background: var(--bg);
+        border-bottom: 1px solid var(--border);
+        box-shadow: 0 24px 40px rgba(0, 0, 0, 0.5);
+        max-height: calc(100vh - 4.5rem);
+        overflow-y: auto;
+      }
+
+      .nav-links.open { display: flex; }
+
+      .nav-links a {
+        display: block;
+        padding: 0.95rem 0;
+        font-size: 0.8rem;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .nav-links a:not(.nav-cv)::after { display: none; }
+
+      .nav-links .nav-cv {
+        margin-top: 1rem;
+        text-align: center;
+        padding: 0.8rem;
+      }
+    }
+
     @media (max-width: 900px) {
-      nav { padding: 1rem 1.5rem; }
-      .nav-links { gap: 1.5rem; }
-      section { padding: 5rem 1.5rem; }
-      #hero { padding: 0 1.5rem; }
-      .hero-scroll { left: 1.5rem; }
-      .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
-      footer { flex-direction: column; gap: 0.5rem; text-align: center; padding: 1.5rem; }
+      :root { --gutter: 1.5rem; }
+
+      nav { padding-top: 0.9rem; padding-bottom: 0.9rem; }
+      section { padding-top: 5rem; padding-bottom: 5rem; }
+
+      #hero {
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+        gap: 2.5rem;
+        padding-top: 7rem;
+        padding-bottom: 4rem;
+      }
+
+      .hero-content { flex: none; }
+
+      .hero-photo-wrapper {
+        order: -1;
+        width: 168px;
+        height: 168px;
+        margin-left: 14px;
+      }
+
+      .hero-photo-wrapper .data-float,
+      .hero-photo-wrapper svg.orbit-ring { display: none; }
+
+      .hero-scroll { display: none; }
+
+      .about-grid, .contact-grid, .timeline-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .cv-inner { padding: 2.5rem 1.5rem; }
+      footer { flex-direction: column; text-align: center; }
     }
 
     @media (max-width: 600px) {
-      .nav-links { display: none; }
       h1 { font-size: 2.8rem; }
+      .hero-sub { font-size: 0.9rem; }
+      .about-stats { gap: 1rem; }
+      .stat-card { padding: 1.3rem; }
+      .stat-num { font-size: 2rem; }
+      .project-card, .skill-group { padding: 1.6rem; }
+    }
+
+    /* ─── MOUVEMENT RÉDUIT ─── */
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+      .js .reveal { opacity: 1; transform: none; }
     }
   </style>
 </head>
 
 <body>
+  <a class="skip-link" href="#main">Aller au contenu</a>
 
-  <div class="cursor" id="cursor"></div>
-  <div class="cursor-ring" id="cursorRing"></div>
+  <div class="cursor" id="cursor" aria-hidden="true"></div>
+  <div class="cursor-ring" id="cursorRing" aria-hidden="true"></div>
 
-  <!-- LIGHTBOX PDF -->
-  <div class="lightbox" id="lightbox">
+  <!-- VISIONNEUSE DE CERTIFICAT -->
+  <dialog class="lightbox" id="lightbox" aria-labelledby="lightboxTitle">
     <div class="lightbox-header">
-      <span class="lightbox-title" id="lightboxTitle"></span>
+      <h2 class="lightbox-title" id="lightboxTitle"></h2>
       <div class="lightbox-actions">
-        <a href="#" id="lightboxDownload" class="lightbox-btn-dl" download target="_blank" rel="noopener">⬇️ Télécharger</a>
-        <button class="lightbox-close" id="lightboxClose">✕ Fermer</button>
+        <a href="#" id="lightboxVerify" class="lightbox-btn lightbox-btn-gold" target="_blank" rel="noopener">✓ Vérifier ↗</a>
+        <a href="#" id="lightboxDownload" class="lightbox-btn lightbox-btn-gold" download>⬇ PDF</a>
+        <button type="button" class="lightbox-btn lightbox-btn-close" id="lightboxClose">✕ Fermer</button>
       </div>
     </div>
     <div class="lightbox-body">
-      <iframe id="lightboxFrame" src="" title="Certificat PDF"></iframe>
+      <img id="lightboxImg" src="data:," alt="">
     </div>
-  </div>
+  </dialog>
 
   <!-- NAV -->
-  <nav>
-    <a href="#hero" class="nav-logo">SKZ_</a>
-    <ul class="nav-links">
+  <nav aria-label="Navigation principale">
+    <a href="#hero" class="nav-logo" aria-label="Retour en haut de page">SKZ_</a>
+    <button type="button" class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navLinks"
+      aria-label="Ouvrir le menu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
       <li><a href="#about">À propos</a></li>
+      <li><a href="#parcours">Parcours</a></li>
       <li><a href="#skills">Compétences</a></li>
       <li><a href="#projects">Projets</a></li>
       <li><a href="#certifications">Certifications</a></li>
-      <li><a href="#cv">CV</a></li>
       <li><a href="#contact">Contact</a></li>
+      <li><a href="#cv" class="nav-cv">CV ↓</a></li>
     </ul>
   </nav>
 
-  <!-- HERO -->
-  <section id="hero">
-    <div class="hero-content">
-      <div class="hero-tag">Disponible pour de nouvelles opportunités</div>
-      <h1>Soro<br>Kinignari<br><span>Zakaria</span></h1>
-      <p class="hero-sub">
-        Data Analyst &amp; Économiste du Développement basé à Abidjan.<br>
-        Je transforme des données complexes en insights stratégiques.
-      </p>
-      <div class="hero-cta">
-        <a href="#projects" class="btn btn-primary">Voir mes projets</a>
-        <a href="#contact" class="btn btn-outline">Me contacter</a>
-      </div>
-    </div>
+  <main id="main">
 
-    <!-- PHOTO HERO — pointe vers photo.jpg à la racine du repo Git -->
-    <div class="hero-photo-wrapper">
-      <div class="data-float" title="SQL">🗄️</div>
-      <div class="data-float" title="Data">📊</div>
-      <div class="data-float" title="Python">🐍</div>
-      <div class="data-float" title="BI">📈</div>
-      <div class="data-float" title="ML">🤖</div>
-      <div class="data-float" title="Excel">📋</div>
-
-      <svg class="orbit-ring" viewBox="0 0 336 336" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="168" cy="168" r="165" stroke="url(#ringGrad1)" stroke-width="1.2" stroke-dasharray="8 14" stroke-linecap="round"/>
-        <polygon points="168,1 172,6 168,11 164,6" fill="#e63946" opacity="0.8"/>
-        <polygon points="333,168 338,172 333,176 328,172" fill="#e63946" opacity="0.5"/>
-        <polygon points="168,325 172,330 168,335 164,330" fill="#e63946" opacity="0.8"/>
-        <polygon points="1,168 6,172 1,176 -4,172" fill="#e63946" opacity="0.5"/>
-        <defs>
-          <linearGradient id="ringGrad1" x1="0" y1="0" x2="336" y2="336" gradientUnits="userSpaceOnUse">
-            <stop offset="0%" stop-color="#e63946" stop-opacity="0.9"/>
-            <stop offset="50%" stop-color="#ff6b6b" stop-opacity="0.3"/>
-            <stop offset="100%" stop-color="#e63946" stop-opacity="0.0"/>
-          </linearGradient>
-        </defs>
-      </svg>
-
-      <svg class="orbit-ring-2" viewBox="0 0 308 308" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="154" cy="154" r="151" stroke="url(#ringGrad2)" stroke-width="1" stroke-dasharray="4 20" stroke-linecap="round"/>
-        <defs>
-          <linearGradient id="ringGrad2" x1="308" y1="0" x2="0" y2="308" gradientUnits="userSpaceOnUse">
-            <stop offset="0%" stop-color="#f4a261" stop-opacity="0.7"/>
-            <stop offset="60%" stop-color="#f4a261" stop-opacity="0.1"/>
-            <stop offset="100%" stop-color="#f4a261" stop-opacity="0.0"/>
-          </linearGradient>
-        </defs>
-      </svg>
-
-      <div class="hero-photo-frame">
-        <img src="./photo.jpg" alt="Soro Kinignari Zakaria"
-             onerror="this.style.display='none'; this.parentElement.style.background='var(--bg3)';" />
-      </div>
-    </div>
-
-    <div class="hero-scroll">Scroll pour explorer</div>
-  </section>
-
-  <!-- ABOUT -->
-  <section id="about">
-    <div class="section-label">À propos</div>
-    <h2>Qui suis-je ?</h2>
-    <div class="about-grid">
-      <div class="about-text reveal">
-        <p>
-          Passionné par la donnée et l'économie, je suis <strong>Data Analyst</strong> chez SaH Analytics International
-          à Abidjan. Titulaire d'un <strong>Master en Économie du Développement</strong> de l'UCAO, j'allie rigueur
-          analytique et vision économique pour produire des insights à haute valeur ajoutée.
+    <!-- HERO -->
+    <section id="hero">
+      <div class="hero-content">
+        <div class="hero-tag">Disponible pour de nouvelles opportunités</div>
+        <h1>Soro<br>Kinignari<br><span>Zakaria</span></h1>
+        <p class="hero-sub">
+          Data Analyst &amp; Économiste du Développement basé à Abidjan.<br>
+          Je transforme des données complexes en insights stratégiques.
         </p>
+        <div class="hero-cta">
+          <a href="#projects" class="btn btn-primary">Voir mes projets</a>
+          <a href="#contact" class="btn btn-outline">Me contacter</a>
+        </div>
+      </div>
+
+      <div class="hero-photo-wrapper">
+        <div class="data-float" aria-hidden="true">🗄️</div>
+        <div class="data-float" aria-hidden="true">📊</div>
+        <div class="data-float" aria-hidden="true">🐍</div>
+        <div class="data-float" aria-hidden="true">📈</div>
+        <div class="data-float" aria-hidden="true">🤖</div>
+        <div class="data-float" aria-hidden="true">📋</div>
+
+        <svg class="orbit-ring" viewBox="0 0 336 336" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <circle cx="168" cy="168" r="165" stroke="url(#ringGrad1)" stroke-width="1.2" stroke-dasharray="8 14" stroke-linecap="round"/>
+          <polygon points="168,1 172,6 168,11 164,6" fill="#e63946" opacity="0.8"/>
+          <polygon points="333,168 338,172 333,176 328,172" fill="#e63946" opacity="0.5"/>
+          <polygon points="168,325 172,330 168,335 164,330" fill="#e63946" opacity="0.8"/>
+          <polygon points="1,168 6,172 1,176 -4,172" fill="#e63946" opacity="0.5"/>
+          <defs>
+            <linearGradient id="ringGrad1" x1="0" y1="0" x2="336" y2="336" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#e63946" stop-opacity="0.9"/>
+              <stop offset="50%" stop-color="#ff6b6b" stop-opacity="0.3"/>
+              <stop offset="100%" stop-color="#e63946" stop-opacity="0.0"/>
+            </linearGradient>
+          </defs>
+        </svg>
+
+        <svg class="orbit-ring-2" viewBox="0 0 308 308" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <circle cx="154" cy="154" r="151" stroke="url(#ringGrad2)" stroke-width="1" stroke-dasharray="4 20" stroke-linecap="round"/>
+          <defs>
+            <linearGradient id="ringGrad2" x1="308" y1="0" x2="0" y2="308" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#f4a261" stop-opacity="0.7"/>
+              <stop offset="60%" stop-color="#f4a261" stop-opacity="0.1"/>
+              <stop offset="100%" stop-color="#f4a261" stop-opacity="0.0"/>
+            </linearGradient>
+          </defs>
+        </svg>
+
+        <div class="hero-photo-frame">
+          <img src="assets/img/photo.webp" width="640" height="640" alt="Portrait de Soro Kinignari Zakaria"
+            fetchpriority="high" decoding="async">
+        </div>
+      </div>
+
+      <div class="hero-scroll" aria-hidden="true">Scroll pour explorer</div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about">
+      <div class="section-label">À propos</div>
+      <h2>Qui suis-je ?</h2>
+      <div class="about-grid">
+        <div class="about-text reveal">
+          <p>
+            Passionné par la donnée et l'économie, je suis <strong>Data Analyst</strong> chez SaH Analytics
+            International à Abidjan. Titulaire d'un <strong>Master en Économie du Développement</strong> de l'UCAO,
+            j'allie rigueur analytique et vision économique pour produire des insights à haute valeur ajoutée.
+          </p>
+          <p>
+            Mon quotidien : concevoir des dashboards interactifs, modéliser des pipelines de données et développer des
+            modèles prédictifs. Je maîtrise aussi bien les outils <strong>BI (Power BI, Superset)</strong> que les
+            langages de programmation <strong>(Python, SQL, R)</strong>.
+          </p>
+          <p>
+            Curieux, méthodique et orienté résultats, je crois que la donnée bien analysée est le levier le plus
+            puissant pour la prise de décision stratégique.
+          </p>
+        </div>
+        <div class="about-stats reveal">
+          <div class="stat-card">
+            <div class="stat-num">11</div>
+            <div class="stat-label">Certifications IBM &amp; Udemy</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">4</div>
+            <div class="stat-label">Projets data</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">Bac+5</div>
+            <div class="stat-label">Master Économie du dév.</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">B2</div>
+            <div class="stat-label">Niveau anglais</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PARCOURS -->
+    <section id="parcours">
+      <div class="section-label">Parcours</div>
+      <h2>Expérience &amp; formation</h2>
+      <div class="timeline-grid">
+
+        <div class="reveal">
+          <h3 class="timeline-heading">Expérience professionnelle</h3>
+          <ol class="timeline">
+            <li class="current">
+              <div class="tl-date">Juin 2025 — Aujourd'hui</div>
+              <div class="tl-title">Data Analyst</div>
+              <div class="tl-org">SaH Analytics International · Abidjan</div>
+              <ul class="tl-points">
+                <li>Conception et déploiement d'un <strong>dashboard 360° client</strong> sur Apache Superset, à partir
+                  de données anonymisées.</li>
+                <li>Développement d'un outil de <strong>cartographie des compétences</strong> sous Excel pour optimiser
+                  la gestion des talents.</li>
+                <li>Contribution à la mise en place d'une <strong>pipeline d'intégration de données</strong> (DBT,
+                  Dagster) au sein de l'équipe Data Engineering.</li>
+                <li>Participation aux réunions de cadrage : définition des besoins clients et des orientations
+                  analytiques.</li>
+              </ul>
+            </li>
+          </ol>
+        </div>
+
+        <div class="reveal">
+          <h3 class="timeline-heading">Formation</h3>
+          <ol class="timeline">
+            <li>
+              <div class="tl-date">Juin — Nov. 2025</div>
+              <div class="tl-title">11 certifications en data</div>
+              <div class="tl-org">IBM (Cognitive Class) &amp; Udemy · Python, SQL, data science, BI ·
+                <a class="tl-link" href="#certifications">voir les certificats</a></div>
+            </li>
+            <li>
+              <div class="tl-date">Déc. 2024 — Juin 2025</div>
+              <div class="tl-title">Certificat de Qualification Professionnelle</div>
+              <div class="tl-org">École de la deuxième chance · Ministère de l'Enseignement Technique, de la Formation
+                Professionnelle et de l'Apprentissage</div>
+            </li>
+            <li>
+              <div class="tl-date">2020 — 2024</div>
+              <div class="tl-title">Master Économie du Développement</div>
+              <div class="tl-org">UCAO · Université Catholique de l'Afrique de l'Ouest</div>
+            </li>
+            <li>
+              <div class="tl-date">Licence</div>
+              <div class="tl-title">Licence Économie et Gestion</div>
+              <div class="tl-org">UCAO · Université Catholique de l'Afrique de l'Ouest</div>
+            </li>
+            <li>
+              <div class="tl-date">2016</div>
+              <div class="tl-title">Baccalauréat série D — Mention Bien</div>
+              <div class="tl-org">Lycée Martin Luther King</div>
+            </li>
+          </ol>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills">
+      <div class="section-label">Compétences</div>
+      <h2>Stack technique</h2>
+      <p class="skills-intro">Niveaux : Avancé ▰▰▰ · Intermédiaire ▰▰▱ · En progression ▰▱▱</p>
+      <div class="skills-grid">
+
+        <div class="skill-group reveal">
+          <h3 class="skill-group-title">Visualisation &amp; BI</h3>
+          <ul class="skill-list">
+            <li class="skill-item"><span class="skill-name">Power BI</span>
+              <span class="skill-level">Avancé <span class="level-meter" data-level="3" aria-hidden="true"><i></i><i></i><i></i></span></span></li>
+            <li class="skill-item"><span class="skill-name">Apache Superset</span>
+              <span class="skill-level">Avancé <span class="level-meter" data-level="3" aria-hidden="true"><i></i><i></i><i></i></span></span></li>
+            <li class="skill-item"><span class="skill-name">Streamlit</span>
+              <span class="skill-level">Intermédiaire <span class="level-meter" data-level="2" aria-hidden="true"><i></i><i></i><i></i></span></span></li>
+          </ul>
+        </div>
+
+        <div class="skill-group reveal">
+          <h3 class="skill-group-title">Langages &amp; données</h3>
+          <ul class="skill-list">
+            <li class="skill-item"><span class="skill-name">Excel</span>
+              <span class="skill-level">Avancé <span class="level-meter" data-level="3" aria-hidden="true"><i></i><i></i><i></i></span></span></li>
+            <li class="skill-item"><span class="skill-name">SQL</span>
+              <span class="skill-level">Avancé <span class="level-meter" data-level="3" aria-hidden="true"><i></i><i></i><i></i></span></span></li>
+            <li class="skill-item"><span class="skill-name">Python</span>
+              <span class="skill-level">Intermédiaire <span class="level-meter" data-level="2" aria-hidden="true"><i></i><i></i><i></i></span></span></li>
+            <li class="skill-item"><span class="skill-name">R</span>
+              <span class="skill-level">Intermédiaire <span class="level-meter" data-level="2" aria-hidden="true"><i></i><i></i><i></i></span></span></li>
+          </ul>
+        </div>
+
+        <div class="skill-group reveal">
+          <h3 class="skill-group-title">Data Engineering</h3>
+          <ul class="skill-list">
+            <li class="skill-item"><span class="skill-name">Power Query / DAX</span>
+              <span class="skill-level">Avancé <span class="level-meter" data-level="3" aria-hidden="true"><i></i><i></i><i></i></span></span></li>
+            <li class="skill-item"><span class="skill-name">DBT</span>
+              <span class="skill-level">En progression <span class="level-meter" data-level="1" aria-hidden="true"><i></i><i></i><i></i></span></span></li>
+            <li class="skill-item"><span class="skill-name">Dagster</span>
+              <span class="skill-level">En progression <span class="level-meter" data-level="1" aria-hidden="true"><i></i><i></i><i></i></span></span></li>
+          </ul>
+        </div>
+
+        <div class="skill-group reveal">
+          <h3 class="skill-group-title">Bibliothèques &amp; outils</h3>
+          <ul class="tool-tags">
+            <li class="tag">pandas</li>
+            <li class="tag">NumPy</li>
+            <li class="tag">Matplotlib</li>
+            <li class="tag">Seaborn</li>
+            <li class="tag">scikit-learn</li>
+            <li class="tag">Jupyter</li>
+            <li class="tag">PostgreSQL</li>
+            <li class="tag">Tableau</li>
+            <li class="tag">VBA</li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects">
+      <div class="section-label">Projets</div>
+      <h2>Travaux récents</h2>
+      <div class="projects-grid">
+
+        <article class="project-card reveal">
+          <div class="project-number">01 — BI &amp; Data Engineering</div>
+          <h3>Dashboard 360° Client — Apache Superset</h3>
+          <p>
+            Conception et déploiement d'un tableau de bord client complet chez SaH Analytics International. Basé sur
+            des données anonymisées, il offre une vue à 360° sur les profils clients et les indicateurs clés.
+          </p>
+          <ul class="project-tags">
+            <li class="tag">Superset</li>
+            <li class="tag">SQL</li>
+            <li class="tag">Python</li>
+            <li class="tag">DBT</li>
+            <li class="tag">Dagster</li>
+          </ul>
+        </article>
+
+        <article class="project-card reveal">
+          <div class="project-number">02 — Machine Learning</div>
+          <h3>Analyse du Churn — Télécommunications</h3>
+          <p>
+            Identification des profils à risque, évaluation de l'impact financier du churn et développement d'un
+            modèle prédictif pour anticiper les désabonnements dans une entreprise fictive de télécommunications.
+          </p>
+          <ul class="project-tags">
+            <li class="tag">Python</li>
+            <li class="tag">SQL</li>
+            <li class="tag">Streamlit</li>
+            <li class="tag">Power BI</li>
+            <li class="tag">Scikit-learn</li>
+          </ul>
+        </article>
+
+        <article class="project-card reveal">
+          <div class="project-number">03 — Business Intelligence</div>
+          <h3>Analyse des Données de Prêts Bancaires</h3>
+          <p>
+            Suite de tableaux de bord interconnectés offrant des informations dynamiques et complètes sur les données
+            de prêts. Modélisation avancée avec Power Query et DAX pour des analyses multi-dimensionnelles.
+          </p>
+          <ul class="project-tags">
+            <li class="tag">Power BI</li>
+            <li class="tag">Power Query</li>
+            <li class="tag">DAX</li>
+            <li class="tag">Excel</li>
+          </ul>
+        </article>
+
+        <article class="project-card reveal">
+          <div class="project-number">04 — RH &amp; Analytics</div>
+          <h3>Cartographie des Compétences</h3>
+          <p>
+            Développement d'un outil de cartographie des compétences via Excel pour optimiser la gestion des talents
+            au sein de SaH Analytics International. Visualisation claire des niveaux de compétences par profil.
+          </p>
+          <ul class="project-tags">
+            <li class="tag">Excel</li>
+            <li class="tag">VBA</li>
+            <li class="tag">HR Analytics</li>
+          </ul>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- CERTIFICATIONS
+         Pour ajouter un certificat : déposer <nom>.pdf, <nom>.webp (aperçu) et <nom>-mini.webp (miniature)
+         dans assets/certificats/, puis copier une carte ci-dessous en changeant data-cert. -->
+    <section id="certifications">
+      <div class="section-label">Certifications</div>
+      <h2>Mes certifications</h2>
+      <div class="certs-grid">
+
+        <article class="cert-card reveal">
+          <button type="button" class="cert-thumb" data-cert="udemy-complete-sql-course"
+            data-title="The Complete SQL Course: From Zero to Data Analyst"
+            data-verify="https://www.udemy.com/certificate/UC-5427e49d-14f9-462c-940f-830345d0bc7c/">
+            <img src="assets/certificats/udemy-complete-sql-course-mini.webp" width="640" height="467" alt=""
+              loading="lazy" decoding="async">
+            <span class="cert-img-overlay"><span>🔍 Voir le certificat</span></span>
+            <span class="visually-hidden">Agrandir le certificat</span>
+          </button>
+          <div class="cert-info">
+            <div class="cert-issuer-row"><span class="cert-issuer">Udemy</span><span class="cert-badge">SQL</span></div>
+            <h3 class="cert-title">The Complete SQL Course : From Zero to Data Analyst</h3>
+            <div class="cert-meta">
+              <time datetime="2025-11-18">18 nov. 2025</time>
+              <a class="cert-verify" href="https://www.udemy.com/certificate/UC-5427e49d-14f9-462c-940f-830345d0bc7c/"
+                target="_blank" rel="noopener">Vérifier ↗</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="cert-card reveal">
+          <button type="button" class="cert-thumb" data-cert="udemy-data-magic"
+            data-title="Mastering Data Magic : Power BI + Tableau + SQL, Analytics"
+            data-verify="https://www.udemy.com/certificate/UC-d55e2e04-4d35-4351-b761-708589f91cab/">
+            <img src="assets/certificats/udemy-data-magic-mini.webp" width="640" height="467" alt=""
+              loading="lazy" decoding="async">
+            <span class="cert-img-overlay"><span>🔍 Voir le certificat</span></span>
+            <span class="visually-hidden">Agrandir le certificat</span>
+          </button>
+          <div class="cert-info">
+            <div class="cert-issuer-row"><span class="cert-issuer">Udemy</span><span class="cert-badge">BI &amp; Analytics</span></div>
+            <h3 class="cert-title">Mastering Data Magic : Power BI + Tableau + SQL</h3>
+            <div class="cert-meta">
+              <time datetime="2025-09-23">23 sept. 2025</time>
+              <a class="cert-verify" href="https://www.udemy.com/certificate/UC-d55e2e04-4d35-4351-b761-708589f91cab/"
+                target="_blank" rel="noopener">Vérifier ↗</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="cert-card reveal">
+          <button type="button" class="cert-thumb" data-cert="ibm-customer-clustering-kmeans"
+            data-title="Customer Clustering with KMeans to Boost Business Strategy">
+            <img src="assets/certificats/ibm-customer-clustering-kmeans-mini.webp" width="640" height="462" alt=""
+              loading="lazy" decoding="async">
+            <span class="cert-img-overlay"><span>🔍 Voir le certificat</span></span>
+            <span class="visually-hidden">Agrandir le certificat</span>
+          </button>
+          <div class="cert-info">
+            <div class="cert-issuer-row"><span class="cert-issuer">IBM</span><span class="cert-badge">Machine Learning</span></div>
+            <h3 class="cert-title">Customer Clustering with KMeans to Boost Business Strategy</h3>
+            <div class="cert-meta">
+              <time datetime="2025-08-12">12 août 2025</time>
+              <span class="cert-kind">Projet guidé</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="cert-card reveal">
+          <button type="button" class="cert-thumb" data-cert="ibm-postgresql-pgadmin"
+            data-title="Create Tables and Load Data in PostgreSQL using pgAdmin">
+            <img src="assets/certificats/ibm-postgresql-pgadmin-mini.webp" width="640" height="462" alt=""
+              loading="lazy" decoding="async">
+            <span class="cert-img-overlay"><span>🔍 Voir le certificat</span></span>
+            <span class="visually-hidden">Agrandir le certificat</span>
+          </button>
+          <div class="cert-info">
+            <div class="cert-issuer-row"><span class="cert-issuer">IBM</span><span class="cert-badge">PostgreSQL</span></div>
+            <h3 class="cert-title">Create Tables and Load Data in PostgreSQL using pgAdmin</h3>
+            <div class="cert-meta">
+              <time datetime="2025-07-10">10 juil. 2025</time>
+              <span class="cert-kind">Projet guidé</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="cert-card reveal">
+          <button type="button" class="cert-thumb" data-cert="ibm-sql-relational-databases"
+            data-title="SQL and Relational Databases 101"
+            data-verify="https://courses.cognitiveclass.ai/certificates/4f6b1ba3579b42ad920ec4826292a823">
+            <img src="assets/certificats/ibm-sql-relational-databases-mini.webp" width="640" height="400" alt=""
+              loading="lazy" decoding="async">
+            <span class="cert-img-overlay"><span>🔍 Voir le certificat</span></span>
+            <span class="visually-hidden">Agrandir le certificat</span>
+          </button>
+          <div class="cert-info">
+            <div class="cert-issuer-row"><span class="cert-issuer">IBM</span><span class="cert-badge">SQL</span></div>
+            <h3 class="cert-title">SQL and Relational Databases 101</h3>
+            <div class="cert-meta">
+              <time datetime="2025-07-03">3 juil. 2025</time>
+              <a class="cert-verify" href="https://courses.cognitiveclass.ai/certificates/4f6b1ba3579b42ad920ec4826292a823"
+                target="_blank" rel="noopener">Vérifier ↗</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="cert-card reveal">
+          <button type="button" class="cert-thumb" data-cert="ibm-data-science-tools"
+            data-title="Data Science Tools"
+            data-verify="https://courses.cognitiveclass.ai/certificates/570bf22b87cb4a82904fb307991860f7">
+            <img src="assets/certificats/ibm-data-science-tools-mini.webp" width="640" height="456" alt=""
+              loading="lazy" decoding="async">
+            <span class="cert-img-overlay"><span>🔍 Voir le certificat</span></span>
+            <span class="visually-hidden">Agrandir le certificat</span>
+          </button>
+          <div class="cert-info">
+            <div class="cert-issuer-row"><span class="cert-issuer">IBM</span><span class="cert-badge">Data Science</span></div>
+            <h3 class="cert-title">Data Science Tools</h3>
+            <div class="cert-meta">
+              <time datetime="2025-07-01">1er juil. 2025</time>
+              <a class="cert-verify" href="https://courses.cognitiveclass.ai/certificates/570bf22b87cb4a82904fb307991860f7"
+                target="_blank" rel="noopener">Vérifier ↗</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="cert-card reveal">
+          <button type="button" class="cert-thumb" data-cert="ibm-data-science-methodology"
+            data-title="Data Science Methodology"
+            data-verify="https://courses.cognitiveclass.ai/certificates/0522c7528a4d46a3acec03d5453d07ca">
+            <img src="assets/certificats/ibm-data-science-methodology-mini.webp" width="640" height="400" alt=""
+              loading="lazy" decoding="async">
+            <span class="cert-img-overlay"><span>🔍 Voir le certificat</span></span>
+            <span class="visually-hidden">Agrandir le certificat</span>
+          </button>
+          <div class="cert-info">
+            <div class="cert-issuer-row"><span class="cert-issuer">IBM</span><span class="cert-badge">Data Science</span></div>
+            <h3 class="cert-title">Data Science Methodology</h3>
+            <div class="cert-meta">
+              <time datetime="2025-06-29">29 juin 2025</time>
+              <a class="cert-verify" href="https://courses.cognitiveclass.ai/certificates/0522c7528a4d46a3acec03d5453d07ca"
+                target="_blank" rel="noopener">Vérifier ↗</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="cert-card reveal">
+          <button type="button" class="cert-thumb" data-cert="ibm-python-101-data-science"
+            data-title="Python 101 for Data Science"
+            data-verify="https://courses.cognitiveclass.ai/certificates/a4e6734f27634301bee1e51f389520e4">
+            <img src="assets/certificats/ibm-python-101-data-science-mini.webp" width="640" height="426" alt=""
+              loading="lazy" decoding="async">
+            <span class="cert-img-overlay"><span>🔍 Voir le certificat</span></span>
+            <span class="visually-hidden">Agrandir le certificat</span>
+          </button>
+          <div class="cert-info">
+            <div class="cert-issuer-row"><span class="cert-issuer">IBM</span><span class="cert-badge">Python</span></div>
+            <h3 class="cert-title">Python 101 for Data Science</h3>
+            <div class="cert-meta">
+              <time datetime="2025-06-29">29 juin 2025</time>
+              <a class="cert-verify" href="https://courses.cognitiveclass.ai/certificates/a4e6734f27634301bee1e51f389520e4"
+                target="_blank" rel="noopener">Vérifier ↗</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="cert-card reveal">
+          <button type="button" class="cert-thumb" data-cert="ibm-data-visualization-python"
+            data-title="Data Visualization with Python"
+            data-verify="https://courses.cognitiveclass.ai/certificates/9ccd4899923641d29b0de5b292ea16b9">
+            <img src="assets/certificats/ibm-data-visualization-python-mini.webp" width="640" height="400" alt=""
+              loading="lazy" decoding="async">
+            <span class="cert-img-overlay"><span>🔍 Voir le certificat</span></span>
+            <span class="visually-hidden">Agrandir le certificat</span>
+          </button>
+          <div class="cert-info">
+            <div class="cert-issuer-row"><span class="cert-issuer">IBM</span><span class="cert-badge">Python</span></div>
+            <h3 class="cert-title">Data Visualization with Python</h3>
+            <div class="cert-meta">
+              <time datetime="2025-06-28">28 juin 2025</time>
+              <a class="cert-verify" href="https://courses.cognitiveclass.ai/certificates/9ccd4899923641d29b0de5b292ea16b9"
+                target="_blank" rel="noopener">Vérifier ↗</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="cert-card reveal">
+          <button type="button" class="cert-thumb" data-cert="ibm-data-analysis-python"
+            data-title="Data Analysis with Python"
+            data-verify="https://courses.cognitiveclass.ai/certificates/ee5bc1edbf4e43b48a442fbe941424f4">
+            <img src="assets/certificats/ibm-data-analysis-python-mini.webp" width="640" height="400" alt=""
+              loading="lazy" decoding="async">
+            <span class="cert-img-overlay"><span>🔍 Voir le certificat</span></span>
+            <span class="visually-hidden">Agrandir le certificat</span>
+          </button>
+          <div class="cert-info">
+            <div class="cert-issuer-row"><span class="cert-issuer">IBM</span><span class="cert-badge">Python</span></div>
+            <h3 class="cert-title">Data Analysis with Python</h3>
+            <div class="cert-meta">
+              <time datetime="2025-06-27">27 juin 2025</time>
+              <a class="cert-verify" href="https://courses.cognitiveclass.ai/certificates/ee5bc1edbf4e43b48a442fbe941424f4"
+                target="_blank" rel="noopener">Vérifier ↗</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="cert-card reveal">
+          <button type="button" class="cert-thumb" data-cert="ibm-data-science-101"
+            data-title="Data Science 101"
+            data-verify="https://courses.cognitiveclass.ai/certificates/f6a4cb60d8444767aa281b2dc6fc7425">
+            <img src="assets/certificats/ibm-data-science-101-mini.webp" width="640" height="400" alt=""
+              loading="lazy" decoding="async">
+            <span class="cert-img-overlay"><span>🔍 Voir le certificat</span></span>
+            <span class="visually-hidden">Agrandir le certificat</span>
+          </button>
+          <div class="cert-info">
+            <div class="cert-issuer-row"><span class="cert-issuer">IBM</span><span class="cert-badge">Data Science</span></div>
+            <h3 class="cert-title">Data Science 101</h3>
+            <div class="cert-meta">
+              <time datetime="2025-06-26">26 juin 2025</time>
+              <a class="cert-verify" href="https://courses.cognitiveclass.ai/certificates/f6a4cb60d8444767aa281b2dc6fc7425"
+                target="_blank" rel="noopener">Vérifier ↗</a>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- CV -->
+    <section id="cv">
+      <div class="section-label">Curriculum Vitae</div>
+      <h2>Télécharger mon CV</h2>
+      <div class="cv-inner reveal">
+        <span class="cv-icon" aria-hidden="true">📄</span>
         <p>
-          Mon quotidien : concevoir des dashboards interactifs, modéliser des pipelines de données et développer des
-          modèles prédictifs. Je maîtrise aussi bien les outils <strong>BI (Power BI, Superset)</strong> que les
-          langages de programmation <strong>(Python, SQL, R)</strong>.
+          Mon CV détaille mon parcours académique, mes expériences professionnelles et mes compétences techniques.
+          Disponible en format PDF, prêt à être partagé.
         </p>
-        <p>
-          Curieux, méthodique et orienté résultats, je crois que la donnée bien analysée est le levier le plus puissant
-          pour la prise de décision stratégique.
-        </p>
-      </div>
-      <div class="about-stats reveal">
-        <div class="stat-card">
-          <div class="stat-num">4+</div>
-          <div class="stat-label">Années de formation</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-num">6+</div>
-          <div class="stat-label">Outils maîtrisés</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-num">2</div>
-          <div class="stat-label">Projets Data livrés</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-num">B2</div>
-          <div class="stat-label">Niveau Anglais</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- SKILLS -->
-  <section id="skills">
-    <div class="section-label">Compétences</div>
-    <h2>Stack technique</h2>
-    <div class="skills-grid">
-      <div class="skill-group reveal">
-        <div class="skill-group-title">Visualisation &amp; BI</div>
-        <div class="skill-item">
-          <div class="skill-header"><span>Power BI</span><span class="skill-pct">80%</span></div>
-          <div class="skill-bar-bg"><div class="skill-bar-fill" data-width="80"></div></div>
-        </div>
-        <div class="skill-item">
-          <div class="skill-header"><span>Apache Superset</span><span class="skill-pct">75%</span></div>
-          <div class="skill-bar-bg"><div class="skill-bar-fill" data-width="75"></div></div>
-        </div>
-        <div class="skill-item">
-          <div class="skill-header"><span>Streamlit</span><span class="skill-pct">65%</span></div>
-          <div class="skill-bar-bg"><div class="skill-bar-fill" data-width="65"></div></div>
-        </div>
-      </div>
-      <div class="skill-group reveal">
-        <div class="skill-group-title">Langages &amp; Données</div>
-        <div class="skill-item">
-          <div class="skill-header"><span>SQL</span><span class="skill-pct">83%</span></div>
-          <div class="skill-bar-bg"><div class="skill-bar-fill" data-width="83"></div></div>
-        </div>
-        <div class="skill-item">
-          <div class="skill-header"><span>Python</span><span class="skill-pct">70%</span></div>
-          <div class="skill-bar-bg"><div class="skill-bar-fill" data-width="70"></div></div>
-        </div>
-        <div class="skill-item">
-          <div class="skill-header"><span>R</span><span class="skill-pct">60%</span></div>
-          <div class="skill-bar-bg"><div class="skill-bar-fill" data-width="60"></div></div>
-        </div>
-        <div class="skill-item">
-          <div class="skill-header"><span>Excel</span><span class="skill-pct">87%</span></div>
-          <div class="skill-bar-bg"><div class="skill-bar-fill" data-width="87"></div></div>
-        </div>
-      </div>
-      <div class="skill-group reveal">
-        <div class="skill-group-title">Data Engineering</div>
-        <div class="skill-item">
-          <div class="skill-header"><span>DBT</span><span class="skill-pct">55%</span></div>
-          <div class="skill-bar-bg"><div class="skill-bar-fill" data-width="55"></div></div>
-        </div>
-        <div class="skill-item">
-          <div class="skill-header"><span>Dagster</span><span class="skill-pct">50%</span></div>
-          <div class="skill-bar-bg"><div class="skill-bar-fill" data-width="50"></div></div>
-        </div>
-        <div class="skill-item">
-          <div class="skill-header"><span>Power Query / DAX</span><span class="skill-pct">78%</span></div>
-          <div class="skill-bar-bg"><div class="skill-bar-fill" data-width="78"></div></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- PROJECTS -->
-  <section id="projects">
-    <div class="section-label">Projets</div>
-    <h2>Travaux récents</h2>
-    <div class="projects-grid">
-
-      <div class="project-card reveal">
-        <div class="project-number">01 — Data Engineering</div>
-        <h3>Dashboard 360° Client — Apache Superset</h3>
-        <p>
-          Conception et déploiement d'un tableau de bord client complet chez SaH Analytics International. Basé sur des
-          données anonymisées, il offre une vue à 360° sur les profils clients et les indicateurs clés.
-        </p>
-        <div class="project-tags">
-          <span class="tag">Superset</span>
-          <span class="tag">SQL</span>
-          <span class="tag">Python</span>
-          <span class="tag">DBT</span>
-          <span class="tag">Dagster</span>
-        </div>
-      </div>
-
-      <div class="project-card reveal">
-        <div class="project-number">02 — Machine Learning</div>
-        <h3>Analyse du Churn — Télécommunications</h3>
-        <p>
-          Identification des profils à risque, évaluation de l'impact financier du churn et développement d'un modèle
-          prédictif pour anticiper les désabonnements dans une entreprise fictive de télécommunications.
-        </p>
-        <div class="project-tags">
-          <span class="tag">Python</span>
-          <span class="tag">SQL</span>
-          <span class="tag">Streamlit</span>
-          <span class="tag">Power BI</span>
-          <span class="tag">Scikit-learn</span>
-        </div>
-      </div>
-
-      <div class="project-card reveal">
-        <div class="project-number">03 — Business Intelligence</div>
-        <h3>Analyse des Données de Prêts Bancaires</h3>
-        <p>
-          Suite de tableaux de bord interconnectés offrant des informations dynamiques et complètes sur les données de
-          prêts. Modélisation avancée avec Power Query et DAX pour des analyses multi-dimensionnelles.
-        </p>
-        <div class="project-tags">
-          <span class="tag">Power BI</span>
-          <span class="tag">Power Query</span>
-          <span class="tag">DAX</span>
-          <span class="tag">Excel</span>
-        </div>
-      </div>
-
-      <div class="project-card reveal">
-        <div class="project-number">04 — RH &amp; Analytics</div>
-        <h3>Cartographie des Compétences</h3>
-        <p>
-          Développement d'un outil de cartographie des compétences via Excel pour optimiser la gestion des talents au
-          sein de SaH Analytics International. Visualisation claire des niveaux de compétences par profil.
-        </p>
-        <div class="project-tags">
-          <span class="tag">Excel</span>
-          <span class="tag">VBA</span>
-          <span class="tag">HR Analytics</span>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- CERTIFICATIONS -->
-  <!--
-    ═══════════════════════════════════════════════════════════════
-    STRUCTURE DU DOSSIER GIT ATTENDUE :
-      /images/Certificate _ cours_python.pdf
-      /images/Certificate _ data science methodology.pdf
-      /images/Certificate _ data science tools.pdf
-      /images/Certificate _ data visualisation with python.pdf
-      /images/Certificate _ python pour data science.pdf
-      /images/Certificate _ SQL.pdf
-      /images/udemy_certificat_data_magic.pdf
-      /images/udemy_certificat_sql_course.pdf
-    ═══════════════════════════════════════════════════════════════
-  -->
-  <section id="certifications">
-    <div class="section-label">Certifications</div>
-    <h2>Mes certifications</h2>
-    <div class="certs-grid">
-
-      <!-- 1 — IBM Python -->
-      <div class="cert-card reveal" onclick="openLightbox('./images/Certificate _ cours_python.pdf', 'Data Analysis with Python')">
-        <div class="cert-img-wrapper">
-          <canvas class="cert-canvas" data-pdf="./images/Certificate _ cours_python.pdf" data-fbid="fb-1"></canvas>
-          <div class="cert-img-fallback cert-fallback-hidden" id="fb-1">
-            <span class="cert-icon-big">🏅</span><span>Data Analysis with Python</span>
-          </div>
-          <div class="cert-img-overlay"><span>🔍 Voir le certificat</span></div>
-        </div>
-        <div class="cert-info">
-          <div class="cert-issuer-row">
-            <span class="cert-issuer">IBM</span>
-            <span class="cert-badge">Python</span>
-          </div>
-          <div class="cert-title">Data Analysis with Python</div>
-          <div class="cert-date">2025</div>
-        </div>
-      </div>
-
-      <!-- 2 — IBM Data Science Methodology -->
-      <div class="cert-card reveal" onclick="openLightbox('./images/Certificate _ data science methodology.pdf', 'Data Science Methodology')">
-        <div class="cert-img-wrapper">
-          <canvas class="cert-canvas" data-pdf="./images/Certificate _ data science methodology.pdf" data-fbid="fb-2"></canvas>
-          <div class="cert-img-fallback cert-fallback-hidden" id="fb-2">
-            <span class="cert-icon-big">🏅</span><span>Data Science Methodology</span>
-          </div>
-          <div class="cert-img-overlay"><span>🔍 Voir le certificat</span></div>
-        </div>
-        <div class="cert-info">
-          <div class="cert-issuer-row">
-            <span class="cert-issuer">IBM</span>
-            <span class="cert-badge">Data Science</span>
-          </div>
-          <div class="cert-title">Data Science Methodology</div>
-          <div class="cert-date">2025</div>
-        </div>
-      </div>
-
-      <!-- 3 — IBM Data Science Tools -->
-      <div class="cert-card reveal" onclick="openLightbox('./images/Certificate _ data science tools.pdf', 'Data Science Tools')">
-        <div class="cert-img-wrapper">
-          <canvas class="cert-canvas" data-pdf="./images/Certificate _ data science tools.pdf" data-fbid="fb-3"></canvas>
-          <div class="cert-img-fallback cert-fallback-hidden" id="fb-3">
-            <span class="cert-icon-big">🏅</span><span>Data Science Tools</span>
-          </div>
-          <div class="cert-img-overlay"><span>🔍 Voir le certificat</span></div>
-        </div>
-        <div class="cert-info">
-          <div class="cert-issuer-row">
-            <span class="cert-issuer">IBM</span>
-            <span class="cert-badge">Data Science</span>
-          </div>
-          <div class="cert-title">Data Science Tools</div>
-          <div class="cert-date">2025</div>
-        </div>
-      </div>
-
-      <!-- 4 — IBM Data Visualization -->
-      <div class="cert-card reveal" onclick="openLightbox('./images/Certificate _ data visualisation with python.pdf', 'Data Visualization with Python')">
-        <div class="cert-img-wrapper">
-          <canvas class="cert-canvas" data-pdf="./images/Certificate _ data visualisation with python.pdf" data-fbid="fb-4"></canvas>
-          <div class="cert-img-fallback cert-fallback-hidden" id="fb-4">
-            <span class="cert-icon-big">🏅</span><span>Data Visualization with Python</span>
-          </div>
-          <div class="cert-img-overlay"><span>🔍 Voir le certificat</span></div>
-        </div>
-        <div class="cert-info">
-          <div class="cert-issuer-row">
-            <span class="cert-issuer">IBM</span>
-            <span class="cert-badge">Python</span>
-          </div>
-          <div class="cert-title">Data Visualization with Python</div>
-          <div class="cert-date">2025</div>
-        </div>
-      </div>
-
-      <!-- 5 — IBM Python 101 -->
-      <div class="cert-card reveal" onclick="openLightbox('./images/Certificate _ python pour data science.pdf', 'Python 101 for Data Science')">
-        <div class="cert-img-wrapper">
-          <canvas class="cert-canvas" data-pdf="./images/Certificate _ python pour data science.pdf" data-fbid="fb-5"></canvas>
-          <div class="cert-img-fallback cert-fallback-hidden" id="fb-5">
-            <span class="cert-icon-big">🏅</span><span>Python 101 for Data Science</span>
-          </div>
-          <div class="cert-img-overlay"><span>🔍 Voir le certificat</span></div>
-        </div>
-        <div class="cert-info">
-          <div class="cert-issuer-row">
-            <span class="cert-issuer">IBM</span>
-            <span class="cert-badge">Python</span>
-          </div>
-          <div class="cert-title">Python 101 for Data Science</div>
-          <div class="cert-date">2025</div>
-        </div>
-      </div>
-
-      <!-- 6 — IBM SQL -->
-      <div class="cert-card reveal" onclick="openLightbox('./images/Certificate _ SQL.pdf', 'SQL and Relational Databases 101')">
-        <div class="cert-img-wrapper">
-          <canvas class="cert-canvas" data-pdf="./images/Certificate _ SQL.pdf" data-fbid="fb-6"></canvas>
-          <div class="cert-img-fallback cert-fallback-hidden" id="fb-6">
-            <span class="cert-icon-big">🏅</span><span>SQL and Relational Databases 101</span>
-          </div>
-          <div class="cert-img-overlay"><span>🔍 Voir le certificat</span></div>
-        </div>
-        <div class="cert-info">
-          <div class="cert-issuer-row">
-            <span class="cert-issuer">IBM</span>
-            <span class="cert-badge">SQL</span>
-          </div>
-          <div class="cert-title">SQL and Relational Databases 101</div>
-          <div class="cert-date">2025</div>
-        </div>
-      </div>
-
-      <!-- 7 — Udemy Power BI + Tableau + SQL -->
-      <div class="cert-card reveal" onclick="openLightbox('./images/udemy_certificat_data_magic.pdf', 'Mastering Data Magic : Power-BI + Tableau + SQL, Analytics')">
-        <div class="cert-img-wrapper">
-          <canvas class="cert-canvas" data-pdf="./images/udemy_certificat_data_magic.pdf" data-fbid="fb-7"></canvas>
-          <div class="cert-img-fallback cert-fallback-hidden" id="fb-7">
-            <span class="cert-icon-big">🏅</span><span>Mastering Data Magic</span>
-          </div>
-          <div class="cert-img-overlay"><span>🔍 Voir le certificat</span></div>
-        </div>
-        <div class="cert-info">
-          <div class="cert-issuer-row">
-            <span class="cert-issuer">Udemy</span>
-            <span class="cert-badge">BI & Analytics</span>
-          </div>
-          <div class="cert-title">Mastering Data Magic : Power-BI + Tableau + SQL</div>
-          <div class="cert-date">2025</div>
-        </div>
-      </div>
-
-      <!-- 8 — Udemy SQL Course -->
-      <div class="cert-card reveal" onclick="openLightbox('./images/udemy_certificat_sql_course.pdf', 'The Complete SQL Course: From Zero to Data Analyst')">
-        <div class="cert-img-wrapper">
-          <canvas class="cert-canvas" data-pdf="./images/udemy_certificat_sql_course.pdf" data-fbid="fb-8"></canvas>
-          <div class="cert-img-fallback cert-fallback-hidden" id="fb-8">
-            <span class="cert-icon-big">🏅</span><span>The Complete SQL Course</span>
-          </div>
-          <div class="cert-img-overlay"><span>🔍 Voir le certificat</span></div>
-        </div>
-        <div class="cert-info">
-          <div class="cert-issuer-row">
-            <span class="cert-issuer">Udemy</span>
-            <span class="cert-badge">SQL</span>
-          </div>
-          <div class="cert-title">The Complete SQL Course : From Zero to Data Analyst</div>
-          <div class="cert-date">2025</div>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- CV -->
-  <section id="cv">
-    <div class="section-label">Curriculum Vitae</div>
-    <h2>Télécharger mon CV</h2>
-    <div class="cv-inner reveal">
-      <span class="cv-icon">📄</span>
-      <p>
-        Mon CV détaille mon parcours académique, mes expériences professionnelles et mes compétences techniques.
-        Disponible en format PDF, prêt à être partagé.
-      </p>
-      <div class="cv-buttons">
-        <a href="https://drive.google.com/uc?export=download&id=1ZZczqnA5FJyQnzuz6MdxR-ZjWM3WHpzp"
-           target="_blank" rel="noopener noreferrer"
-           class="btn-cv btn-download" download="CV_Soro_Kinignari_Zakaria.pdf">
-          ⬇️ Télécharger le CV (PDF)
-        </a>
-        <div class="cv-divider">ou</div>
-        <a href="https://drive.google.com/file/d/1ZZczqnA5FJyQnzuz6MdxR-ZjWM3WHpzp/view?usp=sharing"
-           target="_blank" rel="noopener noreferrer" class="btn-cv btn-view">
-          👁️ Visualiser le CV
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- CONTACT -->
-  <section id="contact">
-    <div class="section-label">Contact</div>
-    <h2>Travaillons ensemble</h2>
-    <div class="contact-grid">
-      <div class="contact-info reveal">
-        <p>
-          Disponible pour des missions freelance, des opportunités en CDI ou des collaborations sur des projets data.
-          N'hésitez pas à me contacter.
-        </p>
-        <div class="contact-links">
-          <a href="mailto:sorokinignari@gmail.com" class="contact-link">
-            <span class="contact-link-icon">✉</span>
-            sorokinignari@gmail.com
+        <div class="cv-buttons">
+          <a href="assets/CV_Soro_Kinignari_Zakaria.pdf" download="CV_Soro_Kinignari_Zakaria.pdf"
+            class="btn-cv btn-download">
+            ⬇ Télécharger le CV (PDF)
           </a>
-          <a href="tel:+2250173980053" class="contact-link">
-            <span class="contact-link-icon">☎</span>
-            +225 0173980053
-          </a>
-          <a href="tel:+2250757085773" class="contact-link">
-            <span class="contact-link-icon">☎</span>
-            +225 0757085773
-          </a>
-          <a href="#" class="contact-link">
-            <span class="contact-link-icon">🌐</span>
-            Portfolio (ce site)
+          <div class="cv-divider">ou</div>
+          <a href="assets/CV_Soro_Kinignari_Zakaria.pdf" target="_blank" rel="noopener" class="btn-cv btn-view">
+            👁 Visualiser le CV
           </a>
         </div>
       </div>
-      <form class="contact-form reveal" onsubmit="handleForm(event)">
-        <div class="form-group">
-          <label>Votre nom</label>
-          <input type="text" placeholder="Jean Dupont" required />
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <div class="section-label">Contact</div>
+      <h2>Travaillons ensemble</h2>
+      <div class="contact-grid">
+        <div class="contact-info reveal">
+          <p>
+            Disponible pour des missions freelance, des opportunités en CDI ou des collaborations sur des projets
+            data. N'hésitez pas à me contacter.
+          </p>
+          <ul class="contact-links">
+            <li>
+              <a href="mailto:sorokinignari@gmail.com" class="contact-link">
+                <span class="contact-link-icon" aria-hidden="true">✉</span>
+                sorokinignari@gmail.com
+              </a>
+            </li>
+            <li>
+              <a href="tel:+2250173980053" class="contact-link">
+                <span class="contact-link-icon" aria-hidden="true">☎</span>
+                +225 01 73 98 00 53
+              </a>
+            </li>
+            <li>
+              <a href="tel:+2250757085773" class="contact-link">
+                <span class="contact-link-icon" aria-hidden="true">☎</span>
+                +225 07 57 08 57 73
+              </a>
+            </li>
+            <li>
+              <a href="https://github.com/sparozak" class="contact-link" target="_blank" rel="noopener">
+                <span class="contact-link-icon" aria-hidden="true">{ }</span>
+                github.com/sparozak
+              </a>
+            </li>
+            <!-- LinkedIn : à ajouter dès que l'URL du profil est connue -->
+          </ul>
         </div>
-        <div class="form-group">
-          <label>Votre email</label>
-          <input type="email" placeholder="jean@exemple.com" required />
-        </div>
-        <div class="form-group">
-          <label>Message</label>
-          <textarea placeholder="Décrivez votre projet ou opportunité…" required></textarea>
-        </div>
-        <button type="submit" class="btn btn-primary" style="cursor:none; border:none;">
-          Envoyer le message
-        </button>
-      </form>
-    </div>
-  </section>
+
+        <form class="contact-form reveal" id="contactForm">
+          <div class="form-group">
+            <label for="cf-name">Votre nom</label>
+            <input id="cf-name" name="name" type="text" placeholder="Jean Dupont" autocomplete="name" required />
+          </div>
+          <div class="form-group">
+            <label for="cf-email">Votre email</label>
+            <input id="cf-email" name="email" type="email" placeholder="jean@exemple.com" autocomplete="email" required />
+          </div>
+          <div class="form-group">
+            <label for="cf-message">Message</label>
+            <textarea id="cf-message" name="message" placeholder="Décrivez votre projet ou opportunité…" required></textarea>
+          </div>
+          <!-- Anti-spam : champ invisible que seuls les robots remplissent -->
+          <div class="hp-field" aria-hidden="true">
+            <label for="cf-botcheck">Ne pas remplir</label>
+            <input id="cf-botcheck" type="checkbox" name="botcheck" tabindex="-1" autocomplete="off">
+          </div>
+          <button type="submit" class="btn btn-primary">Envoyer le message</button>
+          <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+
+  </main>
 
   <!-- FOOTER -->
   <footer>
-    <p>© 2025 <span>Soro Kinignari Zakaria</span>. Tous droits réservés.</p>
+    <p>© <span id="year">2026</span> <span>Soro Kinignari Zakaria</span>. Tous droits réservés.</p>
     <p>Conçu avec <span>♥</span> à Abidjan, Côte d'Ivoire</p>
   </footer>
 
   <script>
-    // ── Custom cursor ──
-    const cursor = document.getElementById('cursor');
-    const ring   = document.getElementById('cursorRing');
-    let mx = 0, my = 0, rx = 0, ry = 0;
+    const root = document.documentElement;
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    document.addEventListener('mousemove', e => {
-      mx = e.clientX; my = e.clientY;
-      cursor.style.left = mx + 'px';
-      cursor.style.top  = my + 'px';
+    // ── Curseur personnalisé : uniquement avec une souris et sans "mouvement réduit" ──
+    if (window.matchMedia('(hover: hover) and (pointer: fine)').matches && !reduceMotion) {
+      const cursor = document.getElementById('cursor');
+      const ring   = document.getElementById('cursorRing');
+      let mx = -100, my = -100, rx = -100, ry = -100;
+
+      root.classList.add('has-cursor', 'cursor-out');
+
+      document.addEventListener('mousemove', e => {
+        mx = e.clientX; my = e.clientY;
+        cursor.style.left = mx + 'px';
+        cursor.style.top  = my + 'px';
+        root.classList.remove('cursor-out');
+      });
+
+      document.addEventListener('mouseleave', () => root.classList.add('cursor-out'));
+
+      document.addEventListener('mouseover', e => {
+        root.classList.toggle('cursor-hover',
+          !!e.target.closest('a, button, .project-card, .stat-card, .cert-card'));
+      });
+
+      (function animateRing() {
+        rx += (mx - rx) * 0.12;
+        ry += (my - ry) * 0.12;
+        ring.style.left = rx + 'px';
+        ring.style.top  = ry + 'px';
+        requestAnimationFrame(animateRing);
+      })();
+    }
+
+    // ── Menu mobile ──
+    const navToggle = document.getElementById('navToggle');
+    const navLinks  = document.getElementById('navLinks');
+
+    function setMenu(open) {
+      navLinks.classList.toggle('open', open);
+      navToggle.setAttribute('aria-expanded', String(open));
+      navToggle.setAttribute('aria-label', open ? 'Fermer le menu' : 'Ouvrir le menu');
+    }
+
+    navToggle.addEventListener('click', () => setMenu(!navLinks.classList.contains('open')));
+    navLinks.addEventListener('click', e => { if (e.target.closest('a')) setMenu(false); });
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && navLinks.classList.contains('open')) { setMenu(false); navToggle.focus(); }
     });
 
-    (function animateRing() {
-      rx += (mx - rx) * 0.12;
-      ry += (my - ry) * 0.12;
-      ring.style.left = rx + 'px';
-      ring.style.top  = ry + 'px';
-      requestAnimationFrame(animateRing);
-    })();
-
-    document.querySelectorAll('a, button, .project-card, .stat-card, .cert-card').forEach(el => {
-      el.addEventListener('mouseenter', () => {
-        cursor.style.width  = '20px'; cursor.style.height = '20px';
-        ring.style.width    = '60px'; ring.style.height   = '60px';
-      });
-      el.addEventListener('mouseleave', () => {
-        cursor.style.width  = '12px'; cursor.style.height = '12px';
-        ring.style.width    = '40px'; ring.style.height   = '40px';
-      });
-    });
-
-    // ── Reveal on scroll ──
-    const reveals  = document.querySelectorAll('.reveal');
-    const observer = new IntersectionObserver(entries => {
+    // ── Apparition au scroll ──
+    const revealObserver = new IntersectionObserver(entries => {
       entries.forEach((entry, i) => {
-        if (entry.isIntersecting) {
-          setTimeout(() => entry.target.classList.add('visible'), i * 80);
-          entry.target.querySelectorAll('.skill-bar-fill').forEach(bar => {
-            bar.style.width = bar.dataset.width + '%';
-          });
-        }
+        if (!entry.isIntersecting) return;
+        setTimeout(() => entry.target.classList.add('visible'), reduceMotion ? 0 : i * 80);
+        revealObserver.unobserve(entry.target);
       });
     }, { threshold: 0.15 });
 
-    reveals.forEach(el => observer.observe(el));
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
-    // ── Lightbox PDF ──
-    const lightbox       = document.getElementById('lightbox');
-    const lightboxFrame  = document.getElementById('lightboxFrame');
-    const lightboxTitle  = document.getElementById('lightboxTitle');
-    const lightboxDl     = document.getElementById('lightboxDownload');
-    const lightboxClose  = document.getElementById('lightboxClose');
-
-    function openLightbox(src, title) {
-      const encoded = src.split('/').map((seg, i) => i === 0 ? seg : encodeURIComponent(seg)).join('/');
-      lightboxFrame.src  = encoded;
-      lightboxTitle.textContent = title || '';
-      lightboxDl.href    = encoded;
-      lightboxDl.download = src.split('/').pop();
-      lightbox.classList.add('open');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function closeLightbox() {
-      lightbox.classList.remove('open');
-      document.body.style.overflow = '';
-      // Vide l'iframe pour stopper le rendu
-      setTimeout(() => { lightboxFrame.src = ''; }, 300);
-    }
-
-    lightboxClose.addEventListener('click', closeLightbox);
-    lightbox.addEventListener('click', e => {
-      if (e.target === lightbox || e.target === document.querySelector('.lightbox-body')) closeLightbox();
-    });
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
-
-    // ── Miniatures PDF via PDF.js ──
-    function encodePdfUrl(url) {
-      // Encode chaque segment du chemin séparément (préserve les / et ./)
-      return url.split('/').map((seg, i) => i === 0 ? seg : encodeURIComponent(seg)).join('/');
-    }
-
-    function showFallback(canvas) {
-      const fbId = canvas.dataset.fbid;
-      if (fbId) {
-        const fb = document.getElementById(fbId);
-        if (fb) { fb.classList.remove('cert-fallback-hidden'); fb.style.display = 'flex'; }
-      }
-      canvas.style.display = 'none';
-    }
-
-    function renderPDFthumbnail(canvas) {
-      const rawUrl    = canvas.dataset.pdf;
-      const pdfUrl    = encodePdfUrl(rawUrl);
-      const wrapper   = canvas.parentElement;
-
-      pdfjsLib.getDocument({ url: pdfUrl, cMapPacked: true }).promise
-        .then(pdf => pdf.getPage(1))
-        .then(page => {
-          const wrapW  = wrapper.offsetWidth  || 300;
-          const wrapH  = wrapper.offsetHeight || 180;
-          const vp0    = page.getViewport({ scale: 1 });
-          // Scale pour couvrir le wrapper (cover)
-          const scaleW = wrapW / vp0.width;
-          const scaleH = wrapH / vp0.height;
-          const scale  = Math.max(scaleW, scaleH) * 1.05;
-          const vp     = page.getViewport({ scale });
-
-          canvas.width  = vp.width;
-          canvas.height = vp.height;
-          // Centre le canvas dans le wrapper
-          canvas.style.position = 'absolute';
-          canvas.style.top      = '50%';
-          canvas.style.left     = '50%';
-          canvas.style.width    = 'auto';
-          canvas.style.height   = 'auto';
-          canvas.style.transform = 'translate(-50%, -50%)';
-          canvas.style.minWidth  = '100%';
-          canvas.style.minHeight = '100%';
-
-          return page.render({
-            canvasContext: canvas.getContext('2d'),
-            viewport: vp
-          }).promise;
-        })
-        .then(() => {
-          canvas.classList.add('rendered');
-        })
-        .catch(err => {
-          console.warn('PDF render failed:', rawUrl, err);
-          showFallback(canvas);
+    // ── Lien actif dans le menu ──
+    const navAnchors = [...document.querySelectorAll('.nav-links a:not(.nav-cv)')];
+    const sectionObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        navAnchors.forEach(a => {
+          const active = a.getAttribute('href') === '#' + entry.target.id;
+          a.classList.toggle('active', active);
+          if (active) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current');
         });
-    }
+      });
+    }, { rootMargin: '-45% 0px -50% 0px' });
 
-    // Charge PDF.js depuis CDN puis rend toutes les miniatures
-    (function loadPDFjs() {
-      const s = document.createElement('script');
-      s.src = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';
-      s.onload = () => {
-        pdfjsLib.GlobalWorkerOptions.workerSrc =
-          'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
-        // Attend que la page soit prête (les wrappers ont une taille)
-        requestAnimationFrame(() => {
-          document.querySelectorAll('.cert-canvas').forEach(renderPDFthumbnail);
-        });
-      };
-      s.onerror = () => {
-        // Si CDN échoue, affiche tous les fallbacks
-        document.querySelectorAll('.cert-canvas').forEach(showFallback);
-      };
-      document.head.appendChild(s);
-    })();
+    document.querySelectorAll('main section[id]').forEach(s => sectionObserver.observe(s));
 
-    // ── Form ──
-    function handleForm(e) {
-      e.preventDefault();
-      const btn = e.target.querySelector('button');
-      btn.textContent = 'Message envoyé ✓';
-      btn.style.background  = '#2ecc71';
-      btn.style.borderColor = '#2ecc71';
-      setTimeout(() => {
-        btn.textContent = 'Envoyer le message';
-        btn.style.background  = '';
-        btn.style.borderColor = '';
-        e.target.reset();
-      }, 3000);
-    }
+    // ── Visionneuse de certificats ──
+    const lightbox      = document.getElementById('lightbox');
+    const lightboxImg   = document.getElementById('lightboxImg');
+    const lightboxTitle = document.getElementById('lightboxTitle');
+    const lightboxDl    = document.getElementById('lightboxDownload');
+    const lightboxVer   = document.getElementById('lightboxVerify');
+    const CERT_DIR      = 'assets/certificats/';
 
-    // ── Active nav link ──
-    const sections = document.querySelectorAll('section[id]');
-    window.addEventListener('scroll', () => {
-      let current = '';
-      sections.forEach(s => { if (window.scrollY >= s.offsetTop - 200) current = s.id; });
-      document.querySelectorAll('.nav-links a').forEach(a => {
-        a.style.color = a.getAttribute('href') === '#' + current ? 'var(--accent)' : '';
+    document.querySelectorAll('.cert-thumb').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const { cert, title, verify } = btn.dataset;
+        lightboxTitle.textContent = title;
+        lightboxImg.src = CERT_DIR + cert + '.webp';
+        lightboxImg.alt = 'Certificat : ' + title;
+        lightboxDl.href = CERT_DIR + cert + '.pdf';
+        lightboxDl.setAttribute('download', cert + '.pdf');
+        lightboxVer.hidden = !verify;
+        if (verify) lightboxVer.href = verify;
+        lightbox.showModal();
+        document.body.style.overflow = 'hidden';
       });
     });
+
+    document.getElementById('lightboxClose').addEventListener('click', () => lightbox.close());
+    lightbox.addEventListener('click', e => { if (e.target === lightbox) lightbox.close(); });
+    lightbox.addEventListener('close', () => {
+      document.body.style.overflow = '';
+      lightboxImg.src = 'data:,';
+    });
+
+    // ── Formulaire de contact ──
+    // Clé Web3Forms (gratuit) : https://web3forms.com → saisir son email → la clé arrive par mail.
+    // Tant qu'elle est vide, le formulaire ouvre la messagerie du visiteur avec le message pré-rempli.
+    const WEB3FORMS_KEY = '';
+    const CONTACT_EMAIL = 'sorokinignari@gmail.com';
+
+    const form       = document.getElementById('contactForm');
+    const formStatus = document.getElementById('formStatus');
+    const submitBtn  = form.querySelector('button[type="submit"]');
+
+    function setStatus(html, kind) {
+      formStatus.innerHTML = html;
+      formStatus.className = 'form-status' + (kind ? ' ' + kind : '');
+    }
+
+    function openMailClient(name, email, message) {
+      const subject = 'Contact portfolio — ' + name;
+      const body = message + '\n\n— ' + name + ' (' + email + ')';
+      window.location.href = 'mailto:' + CONTACT_EMAIL +
+        '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+      setStatus('Votre messagerie s\'ouvre avec le message pré-rempli. Si rien ne se passe, écrivez directement à ' +
+        '<a href="mailto:' + CONTACT_EMAIL + '">' + CONTACT_EMAIL + '</a>.', 'ok');
+    }
+
+    form.addEventListener('submit', async e => {
+      e.preventDefault();
+      const data = new FormData(form);
+      if (data.get('botcheck')) return;
+
+      const name    = data.get('name').trim();
+      const email   = data.get('email').trim();
+      const message = data.get('message').trim();
+
+      if (!WEB3FORMS_KEY) { openMailClient(name, email, message); return; }
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Envoi en cours…';
+      setStatus('', '');
+
+      try {
+        const res = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify({
+            access_key: WEB3FORMS_KEY,
+            subject: 'Portfolio — nouveau message de ' + name,
+            from_name: 'Portfolio Soro Kinignari Zakaria',
+            name, email, message
+          })
+        });
+        const json = await res.json();
+        if (!res.ok || !json.success) throw new Error(json.message || res.status);
+        setStatus('Merci ' + name.replace(/[<>&"]/g, '') + ', votre message a bien été envoyé. Je vous réponds rapidement.', 'ok');
+        form.reset();
+      } catch (err) {
+        console.warn('Envoi du formulaire impossible :', err);
+        setStatus('L\'envoi a échoué. Écrivez-moi directement à ' +
+          '<a href="mailto:' + CONTACT_EMAIL + '">' + CONTACT_EMAIL + '</a>.', 'err');
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Envoyer le message';
+      }
+    });
+
+    // ── Année du footer ──
+    document.getElementById('year').textContent = new Date().getFullYear();
   </script>
 </body>
 </html>
